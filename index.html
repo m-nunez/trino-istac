@@ -4,11 +4,12 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Trino</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
 		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="dist/theme/custom.css" />
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
@@ -16,8 +17,465 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h1><code>Trino</code> &#128305;</h1>
+					<div class="r-stack">
+						<p class="fragment fade-out" data-fragment-index="0">
+							<span class="red">Un breve vistazo a Trino</span>
+						</p>
+						<p class="fragment current-visible" data-fragment-index="0">
+							<span class="red">Un (no tan) breve vistazo a Trino</span>
+						</p>
+					</div>
+				</section>
+				
+				<section>
+				<h1><code>Trino</code> &#128305;</h1>
+				<p>
+					<span class="red">Un (no tan) breve vistazo a Trino</span>
+				</p>
+				<aside class="notes">
+				Shhh, these are your private notes 📝
+				Cosillas...				
+				</aside>
+				</section>
+
+<!-- INTRODUCCION -->
+				<section>
+				  <h3>Índice</h3>
+				  <ol>
+					<li class="fragment highlight-red">Introducción y conceptos básicos</li>
+					<li>Funcionalidades</li>
+					<li>Instalación y configuración</li>
+					<li>Pruebas realizadas</li>
+					<li>Conclusiones</li>
+				  </ol>
+				</section>
+
+				<section>
+				<h2>Introducción y conceptos básicos</h2>
+				</section>
+				
+				<section>
+					<h4>¿Qué es Trino?</h4>
+						<ul>
+							<li class="fragment" data-fragment-index="1">Es un motor SQL distribuido ideado para trabajar con grandes volúmenes de datos de una gran variedad de sistemas de datos.</li>
+							<li class="fragment" data-fragment-index="2">Diseñado para un rendimiento óptimo y escalable.</li>
+							<li class="fragment" data-fragment-index="3" style="color:red">No es una base de datos: no almacena datos.</li>
+						</ul>
+					<aside class="notes">
+					<ol>
+						<li>Por diseño, se evita la copia innecesaria de datos y se maximiza el paralelismo.</li>
+						<li>Preparado para Big Data, Machine Learning y AI.</li>
+						<li>Diseñado para gestionar eficientemente consultar grandes cantidades de datos mediante queries distribuidas y para análisis de datos (OLAP, OnLine Analytical Processing).</li>
+					</ol>
+					</aside>
+				</section>
+
+				<section>
+					<h4>Historia</h4>
+					<ul>
+						<li><span>Proyecto Presto en Facebook en 2012.</span></li>
+						<li><span>En 2013 se liberó con licencia Apache.</span></li>
+						<li><span>La versión más reciente es la v380 (6/5/22).</span></li>
+					</ul>
+					<aside class="notes">
+					<ol>
+						<li>Comenzó siendo el proyecto Presto en Facebook en 2012 por cuatro desarrolladores (Martin Traverso, Dain Sundstrom, David Phillips y Eric Hwang) como alternativa al lento Hive (curiosamente Trino cuenta con un conector Hive que sólo reemplaza el componente SQL HiveQL) usado sobre Hadoop (HDFS) para permitir a los analistas de datos lanzar consultas interactivas sobre los ingentes datos de Facebook (300 PB).</li>
+						<li>En 2013 se liberó con licencia Apache, en 2019 se creó la fundación Presto Software Foundation y a finales de 2020 se renombró como Trino.</li>
+						<li>Actualmente es un proyecto Opensource muy activo, respaldado por la compañía Starburst.</li>
+					</ol>
+					</aside>
+				</section>
+				
+				<section>
+					<h4>¿Quién usa Trino?</h4>
+					<img class="w70" src="img/Trino-usuarios.png" />
+					<aside class="notes">
+					<ol>
+						<li>En su desarrollo hay involucrada gente de muchas compañías: Amazon, Bloomberg, Eventbrite, Gett, Google, Line, LinkedIn, Lyft, Netflix, Pinterest, Qubole, Red Hat, Salesforce, Shopify, Starburst, Treasure Data, Varada, Zuora, etc.</li>
+						<li>Algunas empresas que usan Trino: AWS, LinkedIn, NTT Communications, DiDi… (muchas del tercer mundo).</li>
+					</ol>
+					</aside>
+				</section>
+				
+				<section>
+					<h4>Conceptos básicos - I</h4>
+					<p class="fragment">Arquitectura del sistema</p>
+					<ul>
+						<li class="fragment">
+							<p>Trino es un sistema en cluster.</p>
+							<div class="fragment">
+							<p>Tipos de nodos:</p>
+							<ol>
+								<li>Coordinator<span class="fragment">: El cerebro...</span></li>
+								<li>Worker<span class="fragment">: El currito...</span></li>
+							</ol>
+							</div>
+						</li>
+					</ul>
+					<aside class="notes">
+					<ul>
+						<li>Aunque puede ejecutarse en un único servidor, Trino está pensado para funcionar en modo cluster.</li>
+						<li>Los nodos se comunican entre sí mediante REST API.</li>
+						<li> Existen con los siguientes tipos de nodos:
+							<ol>
+								<li><strong>Coordinator</strong>: Es el cerebro del sistema, parsea las queries, las planifica y se encarga del control de los nodos workers. Este nodo recoge los resultados desde los nodos workers y devolver al cliente la respuesta final. Debe existir al menos uno aunque puede haber varios.</li>
+								<li><strong>Worker</strong>: Es responsable de llevar a cabo las tareas asignadas por el nodo coordinador, recogiendo los datos desde los connectors e intercambiadolos con otros nodos workers. Puede haber uno o más nodos workers que se registrarán durante su arranque en el nodo coordinador.</li>
+							</ol>
+						</li>
+					</ul>
+					</aside>
+				</section>
+				
+				<section>
+					<h4>Conceptos básicos - II</h4>
+					<p class="fragment">En relación a los datos</p>
+					<ol start="1">
+						<li class="fragment"><strong>Connector</strong>: Interfaz a sistemas de datos.</li>
+						<li class="fragment"><strong>Catalog</strong>: Metadatos de las fuentes de datos.</li>
+						<li class="fragment"><strong>Schema</strong>: Organización de las tablas de datos.</li>
+						<li class="fragment"><strong>Table</strong>: Grupo de registros.</li>
+					</ol>
+					<aside class="notes">
+					<ol style="font-size: 0.875em;">
+						<li><strong>Connector</strong>: Hace las veces de interfaz entre un determinado sistema de datos y Trino permitiendo un manejo estandarizado. Se implementan siguiendo un modelo extensible Java SPI (Service Provider Interface). Trino viene con algunos conectores preinstalados: JMX, System, Hive y TPCH.</li>
+						<li><strong>Catalog</strong>: Está asociado a una determinada fuente de datos y contiene la información sobre los esquemas. En el fichero de configuración de cada catalog, se indica el connector a usar mediante la propiedad connector.name. El nombre del catalog se usa como raíz de los nombres completos de los elementos como tablas, índices, etc.</li>
+						<li><strong>Schema</strong>: Junto con los catalogs, es una forma de organizar las tablas de datos. En las BBDD relacionales, se corresponden con los esquemas de éstas pero en otro tipo de BBDD pueden seguir otras estrategias.</li>
+						<li><strong>Table</strong>: Es un grupo de registros desordenados, estructurados en columnas con sus respectivos tipos. En las BBDD relacionales, se corresponden con las tablas de éstas pero en otro tipo de BBDD pueden seguir otras estrategias.</li>
+					</ol>
+					</aside>
+				</section>
+				
+				<section>
+					<h4>Conceptos básicos - III</h4>
+					<p class="fragment">En relación al modelo de ejecución</p>
+					<ol start="1">
+						<li class="fragment"><strong>Statement</strong>: El comando SQL</li>
+						<li class="fragment"><strong>Query</strong>: Colección de objetos</li>
+						<li class="fragment"><strong>Stage</strong>: Pasos</li>
+						<li class="fragment"><strong>Task</strong>: Tarea</li>
+						<li class="fragment"><strong>Driver</strong>: Subtareas</li>
+						<li class="fragment"><strong>Operator</strong>: </li>
+						<li class="fragment"><strong>Otros</strong>: Exchange, Split</li>
+					</ol>
+					<aside class="notes">
+					<ol style="font-size: 0.875em;">
+						<li><strong>Statement</strong>: son las instrucciones SQL-ANSI que admite el Trino, tal y como se reciben del cliente.</li>
+						<li><strong>Query</strong>: Es una colección de stages, tasks, splits, connectors y otros elementos trabajando sobre un conjunto de fuentes de datos para producir un resultado. Se crea al parsear un statement, generandose un plan de ejecución distribuida que se llevará a cabo mediante una serie de stages interconectados.</li>
+						<li><strong>Stage</strong>: Son los diferentes pasos organizados jerárquicamente (árbol) en que se descompone una query, formando el plan de ejecución distribuida. Cada stage recoge los resultados de sus descendientes directos y los pasa a su ancestro. Los stage se ejecutan en paralelo en el nodo coordinador y generan una serie de tasks que se distribuyen en la red de nodos workers.</li>
+						<li><strong>Task</strong>: Son procesos que toman entradas y generan salidas. Igual que las stages, pueden ser ejecutados en paralelo.</li>
+						<li><strong>Driver</strong>: Las tasks se descomponen en múltiples drivers que procesan en paralelo datos en memoria usando operators. Son los componentes que más abajo están en el planning de la query.</li>
+						<li><strong>Operator</strong>: Consume y transforma datos. Algunos operators recuperan datos de un conector, otros filtran datos según un predicado, etc.</li>
+						<li><strong>Otros</strong>:
+							<ul>
+								<li><strong>Exchange</strong>: Se encargan de mover los datos de un buffer a otro de las distintas tasks.</li>
+								<li><strong>Split</strong>: Son las secciones, de un conjunto de datos más extenso, que son recuperados desde un connector (nivel más bajo del planning de la query) o desde stages.</li>
+							</ul>
+						</li>
+					</ol>
+					</aside>
+				</section>
+
+<!-- FUNCIONALIDADES -->
+				<section>
+				  <h3>Índice</h3>
+				  <ol>
+					<li>Introducción y conceptos básicos</li>
+					<li class="fragment highlight-red">Funcionalidades</li>
+					<li>Instalación y configuración</li>
+					<li>Pruebas realizadas</li>
+					<li>Conclusiones</li>
+				  </ol>
+				</section>
+				
+				<section>
+					<h4>Funcionalidades - I</h4>
+					<ol start="1">
+						<li class="fragment"><strong>SQL-on-Anything</strong>: SQL para todo.</li>
+						<li class="fragment"><strong>Federated Query</strong>: Queries sobre varias fuentes de datos.</li>
+						<li class="fragment"><strong>Virtual Data Warehouse</strong>: Almacenamiento homogéneo.</li>
+						<li class="fragment"><strong>Procesamiento/Almacenamiento</strong>: Aisla los recursos usados por las queries de los usados por el almacenamiento.</li>
+					</ol>
+					<aside class="notes">
+					<ol style="font-size: 0.875em;">
+						<li><strong>SQL-on-Anything</strong>: Provee acceso usando un SQL estandarizado a muchos tipos de sistemas de datos: Distributed Object Storage, RDBMS, NoSQL, etc. Evitando las ETLs para cargar en sistemas intermedios.</li>
+						<li><strong>Federated Query</strong>: Soporta queries que referencien distintas fuentes de datos en un sólo comando.</li>
+						<li><strong>Virtual Data Warehouse</strong>: Muestra un almacenamiento de datos uniforme, ocultando las particularidades de cada uno de los sistemas que contienen los datos reales. Soporta el uso de sistemas de datos masivos en la nube (raw Data Lakes como HDFS y AWS S3). Amazon ha usado Presto en su Amazon Athena para que los usuarios puedan hacer consultas SQL interactivas sobre su sistema de datos Amazon S3.</li>
+						<li><strong>Procesamiento/Almacenamiento</strong>: Separa los recursos de almacenamiento de datos de los de procesado de queries, permitiendo un escalado más fácil. Se puede escalar el almacenamiento cuando sea necesario sin necesidad de cambiar los recursos usados en el procesado de las queries. Igualmente, se puede incrementar los recursos de procesado cuando las queries se vayan complicando sin necesidad de cambiar el almacenamiento de datos.</li>
+					</ol>
+					</aside>
+				</section>
+				
+				<section>
+					<section>
+						<h4>Funcionalidades - II</h4>
+						<ol start="1">
+							<li class="fragment"><strong>Query optimizer</strong>: Uso de datos estadísticos.
+								<ul>
+									<li class="fragment">Tablas
+										<ul>
+											<li>Row count</li>
+										</ul>
+									</li>
+									<li class="fragment">Columnas
+										<ul>
+											<li>Data size</li>
+											<li>Nulls fraction</li>
+											<li>Distinct value count</li>
+											<li>Low value</li>
+											<li>High value</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ol>
+						<aside class="notes">
+							<ol style="font-size: 0.875em;">
+								<li>Trino utiliza información estadística de las tablas para optimizar las queries. Esta información la proporcionan los connectors y el nivel de disponibilidad varía de uno a otro.</li>
+								<li>Los datos estadísticos usados son los siguientes:
+									<ul>
+										<li>Tabla - Row count ==> Número de filas de la tabla</li>
+										<li>Columna - Data size ==> tamaño del dato que debe ser leído</li>
+										<li>Columna - Nulls Fractino ==> porcentaje de valores nulos</li>
+										<li>Columna - Distinct value count ==> número de valores diferentes</li>
+										<li>Columna - Low value ==> el valor mínimo</li>
+										<li>Columna - High value ==> el valor máximo</li>
+									</ul>
+								</li>
+								<li>Esta información puede consultarse usando el comando SQL <i>SHOW STATS</i>.</li>
+								</li>Por otro lado, es posible obtener el detalle de la planificación de una query (realizada en base a la información estadística anterior) mediante el comando SQL <i>EXPLAIN</i>.</li>
+								<li>Las optimizaciones que realiza Trino, basadas en estos costes calculados a partir de las estadísticas de tablas, son: Join enumeration y Join distribution selection.</li>
+							</ol>
+						</aside>
+					</section>					
+					<section>
+						<h4>Ejemplo - Comando SHOW STATS</h4>
+						<pre><code data-trim data-noescape style="font-size: 0.6em;">
+trino> show stats for ppa.public.tb_encuesta;
+ERROR: failed to open pager: Cannot run program "less": CreateProcess error=2, El sistema no puede encontrar el archivo especificado
+      column_name       |      data_size      | distinct_values_count |   nulls_fraction    | row_count | low_value | high_value
+------------------------+---------------------+-----------------------+---------------------+-----------+-----------+------------
+ id_establecimiento     |                 5.0 |                   1.0 |                 0.0 |      NULL | NULL      | NULL
+ id_producto            |                 3.0 |   0.20454545319080353 |                 0.0 |      NULL | NULL      | NULL
+ id_grupo_producto      |                 3.0 |   0.15909090638160706 |                 0.0 |      NULL | NULL      | NULL
+ latitud                |                 4.0 |                   1.0 |                 0.0 |      NULL | NULL      | NULL
+ longitud               |                 5.0 |                   1.0 |                 0.0 |      NULL | NULL      | NULL
+ id_marca               |  1.8181819915771484 |   0.11363636702299118 |  0.7727272510528564 |      NULL | NULL      | NULL
+ marca_aux              |   1.624999761581421 |   0.13636364042758942 |  0.8522727489471436 |      NULL | NULL      | NULL
+ variedad               |                 0.0 |                   0.0 |                 1.0 |      NULL | NULL      | NULL
+ formato_aux            |                 0.0 |                   0.0 |                 1.0 |      NULL | NULL      | NULL
+ cantidad               |                NULL |   0.28409090638160706 | 0.13636364042758942 |      NULL | NULL      | NULL
+ precio                 |                NULL |    0.6818181872367859 |                 0.0 |      NULL | NULL      | NULL
+ ano                    |                 5.0 |                   1.0 |                 0.0 |      NULL | NULL      | NULL
+ mes                    |                 3.0 |                   1.0 |                 0.0 |      NULL | NULL      | NULL
+ fecha_hora_recogida    |                NULL |                   1.0 |                 0.0 |      NULL | NULL      | NULL
+ id_articulo            | 0.28409063816070557 |  0.011363625526428223 |  0.9886363744735718 |      NULL | NULL      | NULL
+ descripcion_incidencia |                 0.0 |                   0.0 |                 1.0 |      NULL | NULL      | NULL
+ created_at             |                NULL |   0.46590909361839294 |                 0.0 |      NULL | NULL      | NULL
+ updated_at             |                NULL |   0.46590909361839294 |                 0.0 |      NULL | NULL      | NULL
+ id_estado              |                 5.0 |                   1.0 |                 0.0 |      NULL | NULL      | NULL
+ id_formato             |   8.335227448940277 |    0.9261363670229912 | 0.07386363297700882 |      NULL | NULL      | NULL
+ id_unidad_medida       |   1.863636391727548 |    0.9318181797862053 | 0.06818182021379471 |      NULL | NULL      | NULL
+ NULL                   |                NULL |                  NULL |                NULL |       1.0 | NULL      | NULL
+(22 rows)
+
+Query 20220518_150518_00007_b78u8, FINISHED, 1 node
+Splits: 1 total, 1 done (100,00%)
+0,39 [0 rows, 0B] [0 rows/s, 0B/s]
+						</code></pre>
+					</section>
+					<section>
+						<h4>Ejemplo - Comando EXPLAIN</h4>
+						<pre><code data-trim data-noescape style="font-size: 0.6em;">
+trino> EXPLAIN select count(*) from fermio.e59021a_rd.urd_llamcan20201231_v01;
+ERROR: failed to open pager: Cannot run program "less": CreateProcess error=2, El sistema no puede encontrar el archivo especificado
+                                                                          Query Plan
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Fragment 0 [SINGLE]
+     Output layout: [_pfgnrtd]
+     Output partitioning: SINGLE []
+     Stage Execution Strategy: UNGROUPED_EXECUTION
+     Output[_col0]
+     Ôöé   Layout: [_pfgnrtd:bigint]
+     Ôöé   Estimates: {rows: 1 (9B), cpu: 9, memory: 0B, network: 9B}
+     Ôöé   _col0 := _pfgnrtd
+     ÔööÔöÇ RemoteSource[1]
+            Layout: [_pfgnrtd:bigint]
+
+ Fragment 1 [SOURCE]
+     Output layout: [_pfgnrtd]
+     Output partitioning: SINGLE []
+     Stage Execution Strategy: UNGROUPED_EXECUTION
+     TableScan[fermio:Query[SELECT count(*) AS "_pfgnrtd_0" FROM "e59021a_rd"."urd_llamcan20201231_v01"] columns=[_pfgnrtd_0:bigint:bigint], grouped = false]
+         Layout: [_pfgnrtd:bigint]
+         Estimates: {rows: 1 (9B), cpu: 9, memory: 0B, network: 0B}
+         _pfgnrtd := _pfgnrtd_0:bigint:bigint
+
+
+(1 row)
+
+Query 20220518_151129_00008_b78u8, FINISHED, 1 node
+Splits: 1 total, 1 done (100,00%)
+1,30 [0 rows, 0B] [0 rows/s, 0B/s]
+						</code></pre>
+					</section>
+				</section>
+				
+				<section>
+					<h4>Funcionalidades - III</h4>
+					<ol start="2">
+						<li class="fragment"><strong>Query optimizer</strong>: Pushdown.
+							<ul>
+								<li>Predicate (WHERE)</li>
+								<li>Projection (SELECT)</li>
+								<li>Dereference</li>
+								<li>Aggregation (GROUP BY)</li>
+								<li>Join (JOIN)</li>
+								<li>Limit (LIMIT)</li>
+								<li>Top-N</li>
+							</ul>
+						</li>
+					</ol>
+					<aside class="notes">
+					<ol style="font-size: 0.875em;">
+						<li><strong>Pushdown</strong>: Como parte de la estrategia de optimización, Trino puede enviar parte de las queries hacia la fuente de datos para su procesamiento. Esto incrementa el rendimiento de la query, reduce el tráfico de datos y la carga en la fuente de datos remota. Este mecanismo se llama pushdown y las partes enviadas son: Predicate (cláusula WHERE) para ayudar a filtrar filas, Projection (cláusula SELECT y otras) para filtrar qué columnas recuperar, Dereference para filtrar aún más las columnas devueltas, Aggregation (cláusula GROUP BY y otras), Join (cláusulas JOIN), Limit (cláusulas LIMIT y otras) para reducir el número de filas devueltas y Top-N similar a la anterior.</li>
+						<li>La aplicación de estas optimizaciones pushdown puede observarse en la salida del comando SQL EXPLAIN ya que los operadores correspondientes (Join, Aggregate, etc.) no aparecen en la planificación de la query ya que han sido delegados en las BBDD de origen.</li>
+					</ol>
+					</aside>
+				</section>
+				
+				<section>
+					<h4>Funcionalidades - IV</h4>
+					<ul>
+						<li class="fragment">Spill to disk</li>
+						<li class="fragment">Dynamic filtering</li> <!-- TODO: Poner imagen de las partes de una sentencia SQL -->
+					</ul>
+					<aside class="notes">
+					<ol style="font-size: 0.875em;">
+						<li><strong>Spill to disk</strong>
+							<p>Por defecto, las queries que exceden los límites de memoria de sesión son abortadas para asegurar que el sistema no cae. Esto puede causar que las queries con grandes requisitos de memoria no lleguen a ejecutarse nunca.</p>
+							<p>Para evitarlo, puede activarse el mecanismo de Spill to disk (rebose a disco), similar al sistema de paginación de memoria del sistema operativo, que vuelca a disco parte de la memoria (revocable) usada para ser procesada más tarde, liberando memoria para continuar.</p>
+							<p>Las queries pueden solicitar memoria revocable que no se contabiliza a efectos de alcanzar los límites de memoria de sesión.</p>
+							<p>El Spill to disk está disponible sólo para algunas operaciones concretas (join, agregaciones, order by y window functions).</p>
+							<p>El volcado a disco puede separarse por configuración en distintas unidades físicas, que son tratadas como JBOD (Just a Branch Of Drives) por lo que no es necesario ponerlas bajo control RAID.</p>
+							<p>También es posible habilitar compresión y/o encriptado.</p>
+						</li>
+						<li><strong>Dynamic filtering</strong>
+							<p>En las queries de tipo join, la tabla izquierda (tras la cláusula FROM) y la tabla derecha (tras el JOIN) son filtradas según el predicado (cláusula WHERE) y recuperadas en memoria para hacer el matching según la condición del join (cláusula ON). Cuando las tablas son grandes y el predicado no filtra suficientemente la tabla fact, esto es muy ineficiente.</p>
+							<p>Cuando se activa el Dynamic Filtering, se filtra la tabla derecha (fase #1) según el predicado y se obtienen posibles valores candidatos de las columnas usadas para el join. Estos valores se agregan como nuevas condiciones al predicado creando un nuevo filtro (filtro dinámico generado) usado para filtrar la tabla izquierda (fase #2). Esto ocurre en cada nodo worker (broadcast joins).</p>
+							<p>Adicionalmente, estas nuevas condiciones pueden ser enviadas al nodo coordinador que las agrega y redistribuye a todos los nodos workers para el filtrado de la tabla izquierda.</p>
+							<p>Ambas funcionalidades (dynamic filtering y dynamic filtering distribution) están activadas por defecto aunque pueden desactivarse usando las propiedades enable-dynamic-filtering y enable-coordinator-dynamic-filters-distribution de la configuración o sus respectivas de la sesión (enable_dynamic_filtering y enable_coordinator_dynamic_filters_distribution).</p>
+							<p>El Dynamic filtering está disponible sólo en algunos connectors (Hive[dynamic partition pruning], Memory, etc.).</p>
+							<h5>Las ventajas que se consiguen son:</h5>
+							<ul>
+								<li>Mejorar el rendimiento de las queries</li>
+								<li>Reducir el tráfico entre el Trino y las BBDD</li>
+								<li>Reducir la carga en las BBDD</li>
+							</ul>
+						</li>
+					</ol>
+					</aside>
+				</section>
+
+				
+				<section>
+					<h4>Funcionalidades - V</h4>
+					<ul>
+						<li class="fragment">Resource groups</li>
+						<li class="fragment">Session properties</li>
+					</ul>
+					<aside class="notes">
+						<ol style="font-size: 0.875em;">
+							<li><strong>Resource groups</strong>
+								<p>Permite asignar límites en el uso de recursos a las queries. Se puede limitar el número de queries, la cantidad de memoria y el uso de CPU. Esto se hace definiendo distintos resources groups y cada query es asignada a uno de estos. Un resource group define límites en los recursos (propiedades) y puede contener, a su vez, otros resource groups. Sólo aquellos que no contienen elementos anidados, pueden aceptar queries.</p>
+								<p>Los resource groups son gestionados por un manager, implementado como plugin, que puede ser de dos tipos: file (configurado en fichero JSON en el nodo coordinador) ó db (configurado en BD separado MySQL, Postgresql ó Oracle que pueden ser compartidas por varios clusters Trino).</p>
+								<p>Cada query es asignada a un resource group usando un conjunto de reglas (selectors) en función del usuario, grupo del usuario, fuente (texto externo), tipo de query ó tags. Una vez asignado a un grupo, si la query incumple los límites de uso de los recursos fijados en el grupo no falla sino que es encolada para su posterior ejecución (la estrategia usada para poner en ejecución nuevamente las queries encoladas es configurable por cada resource group).</p>
+								<p>Un ejemplo típico del uso de estos resource groups es la de crear dos grupos para priorizar las queries con ejecución programadas sobre las queries interactivas.</p>
+							</li>
+							<li><strong>Session properties</strong>
+								<p>Las propiedades de sesión pueden controlar el comportamiento de Trino como: el uso de recursos, activar funcionalidades y características de queries.</p>
+								<p>Algunas propiedades son aplicables a todo el sistema, mientras que otras lo pueden ser a cada catálogo por separado.</p>
+								<p>Pueden ser modificables por aquellos usuarios autorizados (ver autorización).</p>
+								<p>Las propiedades son gestionadas por managers pluggables.</p>
+								<p>El manager por defecto usa un fichero de configuración JSON con reglas en función de: usuario, grupo del usuario, fuente (texto externo), tipo de query ó tags.</p>
+							</li>
+						</ol>
+					</aside>
+				</section>
+
+				
+				<section>
+					<section>
+						<h4>Funcionalidades - VI</h4>
+						<ul>
+							<li class="fragment">Distributed sort</li>
+							<li class="fragment">Graceful shutdown</li>
+						</ul>
+						<aside class="notes">
+							<ol style="font-size: 0.875em;">
+								<li><strong>Distributed sort</strong>
+									<p>Esta funcionalidad permite al operador sort ordenar un conjunto de datos en paralelo repartiendo los datos entre múltiples nodos workers para luego realizar una última ordenación en un único worker.</p>
+									<p>Esto posibilita ordenar datos que superarían el límite de memoria de un único nodo (propiedad query.max-memory-per-node) ganando además en rendimiento.</p>
+									<p>Normalmente activado, puede activarse por configuración (distributed-sort) ó sesión (distributed_sort).</p>
+								</li>
+								<li><strong>Graceful shutdown</strong>
+									<p>Al igual que el autoregistro de los nodos workers en el nodo coordinador, via el servicio discovery, permite agregarlos dinámicamente al cluster Trino, esta funcionalidad permite apagar nodos workers sin afectar a las queries que estén en curso, dando un tiempo de gracia antes del apagado (propiedad shutdown.grace-period, 2 minutos por defecto).</p>
+									<p>Para apagar un nodo, se realiza una petición HTTP-PUT.</p>
+									<p>El apagado puede ser protegido por los mecanismos de control de acceso disponibles.</p>
+								</li>
+							</ol>
+						</aside>
+					</section>
+					<section>
+						<p>Ejemplo de apagado de nodo worker</p>
+						<pre><code data-trim data-noescape style="font-size: 0.6em;">curl -X PUT -d '"SHUTTING_DOWN"' -H "Content-type: application/json" http://worker:8081/v1/info/state</code></pre>
+					</section>
+				</section>
+
+				
+				<section>
+					<h4>Funcionalidades - VII</h4>
+					<ul>
+						<li class="fragment">Fault-tolerant
+							<ul>
+								<li>Query retry</li>
+								<li>Task retry</li>
+							</ul>
+						</li>
+						<li class="fragment">JMX</li>
+					</ul>
+					<aside class="notes">
+						<ol style="font-size: 0.875em;">
+							<li><strong>Fault-tolerant</strong>
+								<p>En el caso de que una query falle debido a causas internas (por ejemplo, falta de recursos), por defecto, debe ser relanzada manualmente.</p>
+								<p>Activando el mecanismo <i>Fault-tolerante execution</i>, Trino puede reintentar aquellas tasks fallidas ó la query entera según se configure. Las queries fallidas por errores de sintaxis o por haber sido detenidas por el usuario, no se reintentan.</p>
+								<p>La configuración de <u>reintento de queries</u> es apropiada cuando la mayoría de las queries son cortas o cuando no se disponga de un exchange manager.</p>
+								<p>Por otro lado, cuando las queries sean largas o se lancen en grandes lotes (batch), es perferible el <u>reintento por tasks</u> y se requiere el uso de un exchange manager que conserve los datos usados por los workers basado en un sistema de fichero local o en un sistema compatible S3.</p>
+								<p>En el reintento de queries, por defecto aquellas que devuelven más de 32MB de datos no se reintentan aunque este límite puede modificarse en la configuración (propiedad exchange.deduplication-buffer-size) aunque eso conlleva más consumo de memoria en el nodo coordinador. Para grandes volúmenes se recomienda usar un exchange manager basado en S3.</p>
+								<p>Es posible configurar el número de reintentos, el tiempo entre reintentos, etc. usando multitud de propiedades de configuración.</p>
+							</li>
+							<li><strong>JMX (Java Management Extensions)</strong>
+								<p>Es posible monitorizar el sistema mediante métricas accesibles via Java Management Extensions (JMX), que pueden consultarse mediante un servidor interno (propiedades de configuración jmx.rmiregistry.port y jmx.rmiserver.port) usando cualquier cliente JMX.</p>
+								<p>Existen muchas aplicaciones de monitorización que usan este sistema (jconsole, visualVM, etc.).</p>
+								<p>También es posible ver estas métricas accediendo a un catálogo que use el connector JMX.</p>
+								<p>Hay métricas de todo tipo: de la máquina java (JVM), del cluster Trino, de las queries, de las tasks, etc.</p>
+							</li>
+						</ol>
+					</aside>
+				</section>
+
+<!-- INSTALACIÓN Y CONFIGURACIÓN -->
+
+<!-- PRUEBAS REALIZADAS -->
+
+<!-- CONCLUSIONES -->
+
+<!-- FINAL -->
+				<section id="grand-finale">
+					<h2>Fin</h2>
+					<a href="#/0">Volver a empezar</a>
+				</section>
 			</div>
 		</div>
 
