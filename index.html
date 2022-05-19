@@ -13,6 +13,82 @@
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+		
+		<style>
+			img.carita-r1-c1 {
+				background-image: url('/img/emojis.png');
+				background-repeat: no-repeat;
+				height: 130px;
+				width: 130px;
+				display: inline-block;
+				background-position: 0px 0;
+			}
+			img.carita-r1-c2 {
+				background-image: url('/img/emojis.png');
+				background-repeat: no-repeat;
+				height: 130px;
+				width: 130px;
+				display: inline-block;
+				background-position: -200px 0;
+			}
+			img.carita-r1-c3 {
+				background-image: url('/img/emojis.png');
+				background-repeat: no-repeat;
+				height: 130px;
+				width: 130px;
+				display: inline-block;
+				border-style: hidden;
+				background-position: -400px 0;
+			}
+			img.carita-r2-c1 {
+				background-image: url('/img/emojis.png');
+				background-repeat: no-repeat;
+				height: 130px;
+				width: 130px;
+				display: inline-block;
+				background-position: 0px -188px;
+			}
+			img.carita-r2-c2 {
+				background-image: url('/img/emojis.png');
+				background-repeat: no-repeat;
+				height: 130px;
+				width: 130px;
+				display: inline-block;
+				background-position: -200px -188px;
+			}
+			img.carita-r2-c3 {
+				background-image: url('/img/emojis.png');
+				background-repeat: no-repeat;
+				height: 130px;
+				width: 130px;
+				display: inline-block;
+				background-position: -400px -188px;
+			}
+			img.carita-r3-c1 {
+				background-image: url('/img/emojis.png');
+				background-repeat: no-repeat;
+				height: 130px;
+				width: 130px;
+				display: inline-block;
+				background-position: 0px -376px;
+			}
+			img.carita-r3-c2 {
+				background-image: url('/img/emojis.png');
+				background-repeat: no-repeat;
+				height: 130px;
+				width: 130px;
+				display: inline-block;
+				background-position: -200px -376px;
+			}
+			img.carita-r3-c3 {
+				background-image: url('/img/emojis.png');
+				background-repeat: no-repeat;
+				height: 130px;
+				width: 130px;
+				display: inline-block;
+				background-position: -400px -376px;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
@@ -177,22 +253,36 @@
 				</section>
 				
 				<section>
-					<h4>Conceptos básicos - II</h4>
-					<p>En relación a los datos</p>
-					<ol start="1">
-						<li class="fragment"><strong>Connector</strong>: Interfaz a sistemas de datos.</li>
-						<li class="fragment"><strong>Catalog</strong>: Metadatos de las fuentes de datos.</li>
-						<li class="fragment"><strong>Schema</strong>: Organización de las tablas de datos.</li>
-						<li class="fragment"><strong>Table</strong>: Grupo de registros.</li>
-					</ol>
-					<aside class="notes">
-					<ol style="font-size: 0.875em;">
-						<li><strong>Connector</strong>: Hace las veces de interfaz entre un determinado sistema de datos y Trino permitiendo un manejo estandarizado. Se implementan siguiendo un modelo extensible Java SPI (Service Provider Interface). Trino viene con algunos conectores preinstalados: JMX, System, Hive y TPCH.</li>
-						<li><strong>Catalog</strong>: Está asociado a una determinada fuente de datos y contiene la información sobre los esquemas. En el fichero de configuración de cada catalog, se indica el connector a usar mediante la propiedad connector.name. El nombre del catalog se usa como raíz de los nombres completos de los elementos como tablas, índices, etc.</li>
-						<li><strong>Schema</strong>: Junto con los catalogs, es una forma de organizar las tablas de datos. En las BBDD relacionales, se corresponden con los esquemas de éstas pero en otro tipo de BBDD pueden seguir otras estrategias.</li>
-						<li><strong>Table</strong>: Es un grupo de registros desordenados, estructurados en columnas con sus respectivos tipos. En las BBDD relacionales, se corresponden con las tablas de éstas pero en otro tipo de BBDD pueden seguir otras estrategias.</li>
-					</ol>
-					</aside>
+					<section>
+						<h4>Conceptos básicos - II</h4>
+						<p>En relación a los datos</p>
+						<ol start="1">
+							<li class="fragment"><strong>Connector</strong>: Interfaz a sistemas de datos.</li>
+							<li class="fragment"><strong>Catalog</strong>: Metadatos de las fuentes de datos.</li>
+							<li class="fragment"><strong>Schema</strong>: Organización de las tablas de datos.</li>
+							<li class="fragment"><strong>Table</strong>: Grupo de registros.</li>
+						</ol>
+						<aside class="notes">
+							<ol style="font-size: 0.875em;">
+								<li><strong>Connector</strong>: Hace las veces de interfaz entre un determinado sistema de datos y Trino permitiendo un manejo estandarizado. Se implementan siguiendo un modelo extensible Java SPI (Service Provider Interface). Trino viene con algunos conectores preinstalados: JMX, System, Hive y TPCH.</li>
+								<li><strong>Catalog</strong>: Está asociado a una determinada fuente de datos y contiene la información sobre los esquemas. En el fichero de configuración de cada catalog, se indica el connector a usar mediante la propiedad connector.name. El nombre del catalog se usa como raíz de los nombres completos de los elementos como tablas, índices, etc.</li>
+								<li><strong>Schema</strong>: Junto con los catalogs, es una forma de organizar las tablas de datos. En las BBDD relacionales, se corresponden con los esquemas de éstas pero en otro tipo de BBDD pueden seguir otras estrategias.</li>
+								<li><strong>Table</strong>: Es un grupo de registros desordenados, estructurados en columnas con sus respectivos tipos. En las BBDD relacionales, se corresponden con las tablas de éstas pero en otro tipo de BBDD pueden seguir otras estrategias.</li>
+							</ol>
+						</aside>
+					</section>
+					<section>
+						<p style="font-size: 0.65em;">Comparativa entre distintos sistemas</p>
+						<img class="top framed" src="img/Trino-containment-hierarchy.png" />
+						<aside class="notes">
+							<ol style="font-size: 0.875em;">
+								<li><strong>Mongo</strong>: Ejemplo de base de datos NoSQL orientada a objetos donde cada objeto se almacena como un documento separado.</li>
+								<li><strong>Apache Pinot</strong>: Es un ejemplo de base de datos columnar con almacenamiento distribuido.</li>
+								<li><strong>MySQL</strong>: Ejemplo de base de datos relacional (RDBMS) propiedad de Oracle.</li>
+								<li><strong>Elasticsearch</strong>: Es una base de datos NoSQL orienta a objetos de tipo pares clave-valor.</li>
+							</ol>
+						</aside>
+					</section>
 				</section>
 				
 				<section>
@@ -208,7 +298,7 @@
 						<li class="fragment"><strong>Otros</strong>: Exchange, Split</li>
 					</ol>
 					<aside class="notes">
-					<ol style="font-size: 0.875em;">
+					<ol style="font-size: 0.75em;">
 						<li><strong>Statement</strong>: son las instrucciones SQL-ANSI que admite el Trino, tal y como se reciben del cliente.</li>
 						<li><strong>Query</strong>: Es una colección de stages, tasks, splits, connectors y otros elementos trabajando sobre un conjunto de fuentes de datos para producir un resultado. Se crea al parsear un statement, generandose un plan de ejecución distribuida que se llevará a cabo mediante una serie de stages interconectados.</li>
 						<li><strong>Stage</strong>: Son los diferentes pasos organizados jerárquicamente (árbol) en que se descompone una query, formando el plan de ejecución distribuida. Cada stage recoge los resultados de sus descendientes directos y los pasa a su ancestro. Los stage se ejecutan en paralelo en el nodo coordinador y generan una serie de tasks que se distribuyen en la red de nodos workers.</li>
@@ -235,6 +325,40 @@
 					<li>Pruebas realizadas</li>
 					<li>Conclusiones</li>
 				  </ol>
+				</section>
+				
+				<section>
+					<section>
+						<h4>Funcionalidades - I</h4>
+							<ol start="1">
+								<li class="fragment">Web UI</li>
+							</ol>
+							</br>
+							<ul class="fragment" style="font-size: 0.65em;">
+								<li class="fragment">Es la interfaz de usuario que permite monitorizar el cluster de nodos y manejar las queries.</li>
+								<li class="fragment">Puede hacerse un seguimiento de su ejecución y detalles de las queries.</li>
+								<li class="fragment">No permite lanzar queries</li>
+								<li class="fragment">No muestra los datos resultantes</li>
+							</ul>
+					</section>
+					<section>
+						<!-- Imagen #1 -->
+					</section>
+					<section>
+						<!-- Imagen #2 -->
+					</section>
+					<section>
+						<!-- Imagen #3 -->
+					</section>
+					<section>
+						<!-- Imagen #4 -->
+					</section>
+					<section>
+						<!-- Imagen #5 -->
+					</section>
+					<section>
+						<!-- Imagen #6 -->
+					</section>
 				</section>
 				
 				<section>
@@ -319,31 +443,72 @@ Splits: 6 total, 6 done (100,00%)
 				</section>
 				
 				<section>
-					<h4>Funcionalidades - I</h4>
-					<ol start="1" style="font-size: 0.75em;">
-						<li class="fragment"><strong>SQL-on-Anything</strong>: SQL para todo.
-							<ul style="font-size: 0.65em;">
-								<li>TPCDS</li>
-								<li>TPCH</li>
-								<li>JMX</li>
-								<li>SYSTEM</li>
-								<li>MEMORY</li>
-								<li>BLACK HOLE</li>
-								<li><b>...</b></li>
-							</ul>
-						</li>
-						<li class="fragment"><strong>Federated Query</strong>: Queries sobre varias fuentes de datos.</li>
-						<li class="fragment"><strong>Virtual Data Warehouse</strong>: Almacenamiento homogéneo.</li>
-						<li class="fragment"><strong>Procesamiento/Almacenamiento</strong>: Aisla los recursos usados por las queries de los usados por el almacenamiento.</li>
-					</ol>
-					<aside class="notes">
-					<ol style="font-size: 0.65em;">
-						<li><strong>SQL-on-Anything</strong>: Provee acceso usando un SQL estandarizado a muchos tipos de sistemas de datos: Distributed Object Storage, RDBMS, NoSQL, etc. Evitando las ETLs para cargar en sistemas intermedios.</li>
-						<li><strong>Federated Query</strong>: Soporta queries que referencien distintas fuentes de datos en un sólo comando.</li>
-						<li><strong>Virtual Data Warehouse</strong>: Muestra un almacenamiento de datos uniforme, ocultando las particularidades de cada uno de los sistemas que contienen los datos reales. Soporta el uso de sistemas de datos masivos en la nube (raw Data Lakes como HDFS y AWS S3). Amazon ha usado Presto en su Amazon Athena para que los usuarios puedan hacer consultas SQL interactivas sobre su sistema de datos Amazon S3.</li>
-						<li><strong>Procesamiento/Almacenamiento</strong>: Separa los recursos de almacenamiento de datos de los de procesado de queries, permitiendo un escalado más fácil. Se puede escalar el almacenamiento cuando sea necesario sin necesidad de cambiar los recursos usados en el procesado de las queries. Igualmente, se puede incrementar los recursos de procesado cuando las queries se vayan complicando sin necesidad de cambiar el almacenamiento de datos.</li>
-					</ol>
-					</aside>
+					<section>
+						<h4>Funcionalidades - I</h4>
+						<ol start="1" style="font-size: 0.75em;">
+							<li class="fragment"><strong>SQL-on-Anything</strong>: SQL para todo.
+								<ul style="font-size: 0.65em;">
+									<li>TPCDS</li>
+									<li>TPCH</li>
+									<li>JMX</li>
+									<li>SYSTEM</li>
+									<li>MEMORY</li>
+									<li>BLACK HOLE</li>
+									<li><b>...</b></li>
+								</ul>
+							</li>
+							<li class="fragment"><strong>Federated Query</strong>: Queries sobre varias fuentes de datos.</li>
+							<li class="fragment"><strong>Virtual Data Warehouse</strong>: Almacenamiento homogéneo.</li>
+							<li class="fragment"><strong>Procesamiento/Almacenamiento</strong>: Aisla los recursos usados por las queries de los usados por el almacenamiento.</li>
+						</ol>
+						<aside class="notes">
+							<ol style="font-size: 0.65em;">
+								<li><strong>SQL-on-Anything</strong>: Provee acceso usando un SQL estandarizado a muchos tipos de sistemas de datos: Distributed Object Storage, RDBMS, NoSQL, etc. Evitando las ETLs para cargar en sistemas intermedios.</li>
+								<li><strong>Federated Query</strong>: Soporta queries que referencien distintas fuentes de datos en un sólo comando.</li>
+								<li><strong>Virtual Data Warehouse</strong>: Muestra un almacenamiento de datos uniforme, ocultando las particularidades de cada uno de los sistemas que contienen los datos reales. Soporta el uso de sistemas de datos masivos en la nube (raw Data Lakes como HDFS y AWS S3). Amazon ha usado Presto en su Amazon Athena para que los usuarios puedan hacer consultas SQL interactivas sobre su sistema de datos Amazon S3.</li>
+								<li><strong>Procesamiento/Almacenamiento</strong>: Separa los recursos de almacenamiento de datos de los de procesado de queries, permitiendo un escalado más fácil. Se puede escalar el almacenamiento cuando sea necesario sin necesidad de cambiar los recursos usados en el procesado de las queries. Igualmente, se puede incrementar los recursos de procesado cuando las queries se vayan complicando sin necesidad de cambiar el almacenamiento de datos.</li>
+							</ol>
+						</aside>
+					</section>
+					<section>
+						<p style="font-size: 0.65em;">Tipos de Bases de Datos</p>
+						<ul style="font-size: 0.65em;">
+							<li>RDBMS (Microsoft SQL Server, Oracle Database, MySQL, PostgreSQL, ...)</li>
+							<li>NoSQL (Apache Cassandra, MongoDB, CouchDB, ...)</li>
+							<li>Cloud databases (Microsoft Azure SQL Database, Amazon Relational Database Service, Oracle Autonomous Database, ...)</li>
+							<li>Columnar databases (Google BigQuery, Cassandra, HBase, MariaDB, Azure SQL Data Warehouse, ...)</li>
+							<li>Wide column databases (BigTable, Apache Cassandra and Scylla, ...)</li>
+							<li>Object-oriented databases (Wakanda, ObjectStore, ...)</li>
+							<li>Key-value databases (Amazon DynamoDB, Redis, ...)</li>
+							<li>Hierarchical databases (IBM Information Management System (IMS), Windows Registry, ...)</li>
+							<li>Document databases (MongoDB, Amazon DocumentDB, Apache CouchDB, ...)</li>
+							<li>Graph databases (Datastax Enterprise Graph, Neo4J, ...)</li>
+							<li>Time series databases (Druid, eXtremeDB, InfluxDB, ...)</li>
+							<li></li>
+							<li></li>
+						</ul>
+						<aside class="notes">
+							<ol style="font-size: 0.65em;">
+								<li><strong></strong>: .</li>
+								<li><strong></strong>: .</li>
+								<li><strong></strong>: .</li>
+								<li><strong></strong>: .</li>
+								<li><strong></strong>: .</li>
+							</ol>
+						</aside>
+					</section>
+					<section>
+						<p style="font-size: 0.65em;">Tipos de Bases de Datos NoSQL</p>
+						<img class="top framed" src="img/types-of-databases3.png" />
+						<aside class="notes">
+							<ol style="font-size: 0.65em;">
+								<li><strong>Key-value storage</strong>: Es la más simple de las bases de datos NoSQL. Cada elemento tiene un atributo nombre (key) y conserva un valor.</li>
+								<li><strong>Document-oriented Database</strong>: Almacena datos como documentos JSON. Tiene la ventaja de usar el mismo formato que los usados en las aplicaciones.</li>
+								<li><strong>Graph Databases</strong>: Usadas para almacenar grandes volúmenes de datos en una estructura de grafo. Muy usada en las web de las redes sociales.</li>
+								<li><strong>Wide-column stores</strong>: Parecida a las bases de datos relacionales pero los datos correspondientes a cada columna se almacenan juntos en vez de por filas.</li>
+							</ol>
+						</aside>
+					</section>
 				</section>
 				
 				<section>
@@ -462,26 +627,47 @@ Splits: 1 total, 1 done (100,00%)
 				</section>
 				
 				<section>
-					<h4>Funcionalidades - III</h4>
-					<ol start="2">
-						<li class="fragment"><strong>Query optimizer</strong>: Pushdown.
-							<ul>
-								<li>Predicate (WHERE)</li>
-								<li>Projection (SELECT)</li>
-								<li>Dereference</li>
-								<li>Aggregation (GROUP BY)</li>
-								<li>Join (JOIN)</li>
-								<li>Limit (LIMIT)</li>
-								<li>Top-N</li>
-							</ul>
-						</li>
-					</ol>
-					<aside class="notes">
-					<ol style="font-size: 0.875em;">
-						<li><strong>Pushdown</strong>: Como parte de la estrategia de optimización, Trino puede enviar parte de las queries hacia la fuente de datos para su procesamiento. Esto incrementa el rendimiento de la query, reduce el tráfico de datos y la carga en la fuente de datos remota. Este mecanismo se llama pushdown y las partes enviadas son: Predicate (cláusula WHERE) para ayudar a filtrar filas, Projection (cláusula SELECT y otras) para filtrar qué columnas recuperar, Dereference para filtrar aún más las columnas devueltas, Aggregation (cláusula GROUP BY y otras), Join (cláusulas JOIN), Limit (cláusulas LIMIT y otras) para reducir el número de filas devueltas y Top-N similar a la anterior.</li>
-						<li>La aplicación de estas optimizaciones pushdown puede observarse en la salida del comando SQL EXPLAIN ya que los operadores correspondientes (Join, Aggregate, etc.) no aparecen en la planificación de la query ya que han sido delegados en las BBDD de origen.</li>
-					</ol>
-					</aside>
+					<section>
+						<h4>Funcionalidades - III</h4>
+						<ol start="2">
+							<li class="fragment"><strong>Query optimizer</strong>: Pushdown.
+								<ul>
+									<li>Predicate (WHERE)</li>
+									<li>Projection (SELECT)</li>
+									<li>Dereference</li>
+									<li>Aggregation (GROUP BY)</li>
+									<li>Join (JOIN)</li>
+									<li>Limit (LIMIT)</li>
+									<li>Top-N</li>
+								</ul>
+							</li>
+						</ol>
+						<aside class="notes">
+						<ol style="font-size: 0.875em;">
+							<li><strong>Pushdown</strong>: Como parte de la estrategia de optimización, Trino puede enviar parte de las queries hacia la fuente de datos para su procesamiento. Esto incrementa el rendimiento de la query, reduce el tráfico de datos y la carga en la fuente de datos remota. Este mecanismo se llama pushdown y las partes enviadas son: Predicate (cláusula WHERE) para ayudar a filtrar filas, Projection (cláusula SELECT y otras) para filtrar qué columnas recuperar, Dereference para filtrar aún más las columnas devueltas, Aggregation (cláusula GROUP BY y otras), Join (cláusulas JOIN), Limit (cláusulas LIMIT y otras) para reducir el número de filas devueltas y Top-N similar a la anterior.</li>
+							<li>La aplicación de estas optimizaciones pushdown puede observarse en la salida del comando SQL EXPLAIN ya que los operadores correspondientes (Join, Aggregate, etc.) no aparecen en la planificación de la query ya que han sido delegados en las BBDD de origen.</li>
+						</ol>
+						</aside>
+					</section>
+					<section>
+						<img class="top framed" src="img/sql-queries.jpeg"  width="400" height="400" />
+					</section>
+					<section>
+						<p>¿Qué son las windows functions?</p>
+						<div  style="font-size: 0.65em;">
+							<blockquote>Realizan cálculos sobre un conjunto de registros relacionados con el actual, de forma similar a las funciones de agregación pero sin agrupar filas.</blockquote>
+							<pre><code data-trim data-noescape>
+								SELECT
+									duration,
+									SUM(duration) <u>OVER</u> (ORDER BY start_time) AS running_total
+								FROM
+									tasks;
+							</code></pre>
+						</div>
+						<aside class="notes">
+							<p><b>Ejemplo</b>: cálculo de la duración relativa de cada tarea frente al total</p>
+						</aside>
+					</section>
 				</section>
 				
 				<section>
@@ -609,6 +795,136 @@ Splits: 1 total, 1 done (100,00%)
 <!-- PRUEBAS REALIZADAS -->
 
 <!-- CONCLUSIONES -->
+				<section>
+					<h4>Ventajas</h4>
+					<ul>
+						<li>Gestión uniforme de todas las fuentes de datos</li>
+						<li>Facilita el análisis de datos</li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+					<aside class="notes">
+					</aside>
+				</section>
+				
+				<section>
+					<h4>Desventajas - I</h4> <img class="carita-r1-c2" /><br/>
+					<ol start=1">
+						<li _class="fragment">Carencias:
+							<ul>
+								<li class="fragment" style="font-size: 0.65em;">No permite reutilizar queries</li>
+								<li class="fragment" style="font-size: 0.65em;">No incluye una herramienta para la gestión de usuarios</li>
+								<li class="fragment" style="font-size: 0.65em;">No hay herramienta para gestionar la configuración</li>
+								<li class="fragment" style="font-size: 0.65em;">No soporta comentarios en los ficheros JSON</li>
+								<li class="fragment" style="font-size: 0.65em;">No hay imagen docker oficial específica para coordinador y workers</li>
+							</ul>
+						</li>
+					</ol>
+					<aside class="notes">
+						<ul style="font-size: 0.75em;">
+							<li>No se puede almacenar/administrar queries para reutilizarlas, aunque pueden lanzarse scripts SQL almacenadas en disco.</li>
+							<li>No hay una herramienta para la gestión de usuarios y grupos.</li>
+							<li>El control de acceso fino (file) ha de hacerse con ficheros json, no hay una herramienta visual que ayude.</li>
+							<li>No soporta comentarios (como campos extra) en los ficheros JSON de configuración, lo que sería de mucha utilidad.</li>
+							<li>No hay imagen docker oficial separada para nodos coordinadores y workers.</li>
+						</ul>
+					</aside>
+				</section>
+				
+				<section>
+					<h4>Desventajas - II</h4> <img class="carita-r3-c2" /><br/>
+					<ol start=2">
+						<li _class="fragment">No es idóneo para:
+							<ul>
+								<li class="fragment" style="font-size: 0.65em;">Queries fijas: No usa cachés</li>
+								<li class="fragment" style="font-size: 0.65em;">Instalaciones en un único servidor</li>
+								<li class="fragment" style="font-size: 0.65em;">Se pierde la posibilidad de auditar accesos a las BDD</li>
+								<li class="fragment" style="font-size: 0.65em;">No aconsejado para docker short-lived</li>
+								<li class="fragment" style="font-size: 0.65em;">Configuración de la memoria complicada</li>
+							</ul>
+						</li>
+					</ol>
+					<aside class="notes">
+						<ul style="font-size: 0.75em;">
+							<li>Trino se focaliza en queries ad-hoc interactivas comunes en el análisis de los datos (OLAP).<br/>
+							No dispone de mecanismos de cacheado de resultados (similares a memCache...)</li>
+							<li>Trino está diseñado para realizar computación distribuída en una red de servidores. No está diseñado para ejecutarse en un único servidor.</li>
+							<li>El Trino no guarda información de auditoría, sólo un histórico de queries que se pierde al reinicar el servidor.<br/>
+							Al usar sus propias credenciales de acceso a los datos, se pierde la posibilidad de auditar los accesos de los usuarios.<br/>
+							Quizás con algún plugin o herramienta externa.</li>
+							<li>Aunque no es una configuración que pueda ser útil, el arranque no es muy lento pero sí lo suficiente como para desaconsejar su uso como contenedor docker short-lived.</li>
+							<li>Configurar la memoria para un rendimiento óptimo en todo momento puede ser muy complicado.<br/>
+							Las distintas estrategias de optimización usadas por el Trino deberían poder lidiar con la mayoría de las situaciones.</li>
+						</ul>
+					</aside>
+				</section>
+				
+				<section>
+					<h4>Desventajas - III</h4> <img class="top carita-r1-c3" /><br/>
+					<ol start=3">
+						<li _class="fragment">Limitaciones/Problemas:
+							<ul>
+								<li class="fragment" style="font-size: 0.65em;">No soporta Oracle versiones &lt;12</li>
+								<li class="fragment" style="font-size: 0.65em;">No soporta algunas de las funcionalidades de las fuentes de datos</li>
+								<li class="fragment" style="font-size: 0.65em;">No soporta CAS/SSO</li>
+								<li class="fragment" style="font-size: 0.65em;">Algunos tipos de datos no se soportan o requieren de configuración adicional</li>
+								<li class="fragment" style="font-size: 0.65em;">El histórico de queries es volátil</li>
+								<li class="fragment" style="font-size: 0.65em;">El driver JDBC no funciona bien con el Apache Hop/Pentaho</li>
+								<li class="fragment" style="font-size: 0.65em;">Se debe reiniciar el cluster para quitar/poner catálogos</li>
+							</ul>
+						</li>
+					</ol>
+					<aside class="notes">
+						<ull style="font-size: 0.75em;">
+							<li>Las versiones de Oracle en uso ahora mismo son 11g por lo que no se ha podido usar Trino sobre ellas. Las versiones >=12 son soportadas.</li>
+							<li>Sólo soporta ANSI-SQL con algunas extensiones propias.<br/>
+							Aunque las especifidades puedan ser gestionadas por los connectors, las sentencias SQL deben ser compatibles ANSI (no se puede usar extensiones específicas de la DBMS).<br/>
+							Por tanto, algunas queries no podrán usarse o requerir ser modificadas.</li>
+							<li>El Web UI no soporta CAS/SSO. Eso dificultará una eventual publicación en la red del Gobierno.</li>
+							<li>A veces el mapeado de tipos entre los soportados por la BDD y el Trino es complicada. Por ejemplo, los tipos geometric, numeric sin dimensión… del PostgreSQL.</li>
+							<li>El histórico de queries se conserva en memoria (puede consultarse usando el connector SYSTEM) y se pierde al reiniciar el cluster.</li>
+							<li>Se ha detectado un problema con los campos de tipo fecha cuando se usa el cliente JDBC para acceder desde Apache Hop y Pentaho PDI. Después de varias pruebas, se confirma que es un problema del Apache Hop y Pentaho PDI que confunden el tipo fecha con el datetimestamp.</li>
+							<li>Aunque es posible agregar o quitar nodos workers en caliente, no sucede lo mismo con los catálogos y se requiere reiniciar el cluster.</li>
+						</ul>
+					</aside>
+				</section>
+				
+				<section>
+					<h4>Conclusiones</h4>
+					<ol>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ol>
+					<aside class="notes">
+					</aside>
+				</section>
+				
+				<section>
+					<h4>Referencias</h4>
+					<ol>
+						<li>https://en.wikipedia.org/wiki/Presto_(SQL_query_engine)</li>
+						<li>https://blog.starburst.io/intro-to-trino-for-the-trinewbie</li>
+						<li>https://docs.starburst.io/data-consumer/clients/odbc.html</li>
+						<li>https://www.sas.com/content/dam/SAS/support/en/sas-global-forum-proceedings/2019/3358-2019.pdf</li>
+						<li>https://www.matillion.com/resources/blog/the-types-of-databases-with-examples</li>
+						<li>https://www.javatpoint.com/types-of-databases</li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ol>
+					<aside class="notes">
+					</aside>
+				</section>
 
 <!-- FINAL -->
 				<section id="grand-finale">
