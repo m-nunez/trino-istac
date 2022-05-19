@@ -88,6 +88,12 @@
 				display: inline-block;
 				background-position: -400px -376px;
 			}
+			.fragment.current-visible.visible:not(.current-fragment) {
+				display: none;
+				height:0px;
+				line-height: 0px;
+				font-size: 0px;
+			}
 		</style>
 	</head>
 	<body>
@@ -340,6 +346,24 @@
 								<li class="fragment">No permite lanzar queries</li>
 								<li class="fragment">No muestra los datos resultantes</li>
 							</ul>
+						<aside class="notes">
+							<ul>
+								<li>No se puede:
+									<ul>
+										<li>Bloquear el Web UI para un usuario determinado.</li>
+									</ul>
+								</i>
+								<li>Se puede:
+									<ul>
+										<li>Desactivar completamente el Web UI.</li>
+										<li>Fijar el usuario del Web UI de forma que no se necesite introducir credenciales.<br/>
+										Se puede controlar los accesos de este usuario mediante la configuración.</li>
+										<li>Por defecto, todos los usuarios ven las queries de todos. Se puede modificar este comportamiento en la configuración.</li>
+									</ul>
+								</i>
+							</ul>
+							<p>No permite bloquear el acceso a un usuario al interfaz web.</p>
+						</aside>
 					</section>
 					<section>
 						<!-- Imagen #1 -->
@@ -673,33 +697,34 @@ Splits: 1 total, 1 done (100,00%)
 				<section>
 					<h4>Funcionalidades - IV</h4>
 					<ul>
-						<li class="fragment">Spill to disk</li>
-						<li class="fragment">Dynamic filtering</li> <!-- TODO: Poner imagen de las partes de una sentencia SQL -->
+						<li class="fragment" data-fragment-index="0">Spill to disk</li>
+						<li class="fragment" data-fragment-index="1">Dynamic filtering</li>
+						<img class="fragment top framed" data-fragment-index="1" src="img/585px-Joins_del_SQL.svg.png" style="background-color: #6DB3F2;" />
 					</ul>
 					<aside class="notes">
-					<ol style="font-size: 0.875em;">
-						<li><strong>Spill to disk</strong>
-							<p>Por defecto, las queries que exceden los límites de memoria de sesión son abortadas para asegurar que el sistema no cae. Esto puede causar que las queries con grandes requisitos de memoria no lleguen a ejecutarse nunca.</p>
-							<p>Para evitarlo, puede activarse el mecanismo de Spill to disk (rebose a disco), similar al sistema de paginación de memoria del sistema operativo, que vuelca a disco parte de la memoria (revocable) usada para ser procesada más tarde, liberando memoria para continuar.</p>
-							<p>Las queries pueden solicitar memoria revocable que no se contabiliza a efectos de alcanzar los límites de memoria de sesión.</p>
-							<p>El Spill to disk está disponible sólo para algunas operaciones concretas (join, agregaciones, order by y window functions).</p>
-							<p>El volcado a disco puede separarse por configuración en distintas unidades físicas, que son tratadas como JBOD (Just a Branch Of Drives) por lo que no es necesario ponerlas bajo control RAID.</p>
-							<p>También es posible habilitar compresión y/o encriptado.</p>
-						</li>
-						<li><strong>Dynamic filtering</strong>
-							<p>En las queries de tipo join, la tabla izquierda (tras la cláusula FROM) y la tabla derecha (tras el JOIN) son filtradas según el predicado (cláusula WHERE) y recuperadas en memoria para hacer el matching según la condición del join (cláusula ON). Cuando las tablas son grandes y el predicado no filtra suficientemente la tabla fact, esto es muy ineficiente.</p>
-							<p>Cuando se activa el Dynamic Filtering, se filtra la tabla derecha (fase #1) según el predicado y se obtienen posibles valores candidatos de las columnas usadas para el join. Estos valores se agregan como nuevas condiciones al predicado creando un nuevo filtro (filtro dinámico generado) usado para filtrar la tabla izquierda (fase #2). Esto ocurre en cada nodo worker (broadcast joins).</p>
-							<p>Adicionalmente, estas nuevas condiciones pueden ser enviadas al nodo coordinador que las agrega y redistribuye a todos los nodos workers para el filtrado de la tabla izquierda.</p>
-							<p>Ambas funcionalidades (dynamic filtering y dynamic filtering distribution) están activadas por defecto aunque pueden desactivarse usando las propiedades enable-dynamic-filtering y enable-coordinator-dynamic-filters-distribution de la configuración o sus respectivas de la sesión (enable_dynamic_filtering y enable_coordinator_dynamic_filters_distribution).</p>
-							<p>El Dynamic filtering está disponible sólo en algunos connectors (Hive[dynamic partition pruning], Memory, etc.).</p>
-							<h5>Las ventajas que se consiguen son:</h5>
-							<ul>
-								<li>Mejorar el rendimiento de las queries</li>
-								<li>Reducir el tráfico entre el Trino y las BBDD</li>
-								<li>Reducir la carga en las BBDD</li>
-							</ul>
-						</li>
-					</ol>
+						<ol style="font-size: 0.875em;">
+							<li><strong>Spill to disk</strong>
+								<p>Por defecto, las queries que exceden los límites de memoria de sesión son abortadas para asegurar que el sistema no cae. Esto puede causar que las queries con grandes requisitos de memoria no lleguen a ejecutarse nunca.</p>
+								<p>Para evitarlo, puede activarse el mecanismo de Spill to disk (rebose a disco), similar al sistema de paginación de memoria del sistema operativo, que vuelca a disco parte de la memoria (revocable) usada para ser procesada más tarde, liberando memoria para continuar.</p>
+								<p>Las queries pueden solicitar memoria revocable que no se contabiliza a efectos de alcanzar los límites de memoria de sesión.</p>
+								<p>El Spill to disk está disponible sólo para algunas operaciones concretas (join, agregaciones, order by y window functions).</p>
+								<p>El volcado a disco puede separarse por configuración en distintas unidades físicas, que son tratadas como JBOD (Just a Branch Of Drives) por lo que no es necesario ponerlas bajo control RAID.</p>
+								<p>También es posible habilitar compresión y/o encriptado.</p>
+							</li>
+							<li><strong>Dynamic filtering</strong>
+								<p>En las queries de tipo join, la tabla izquierda (tras la cláusula FROM) y la tabla derecha (tras el JOIN) son filtradas según el predicado (cláusula WHERE) y recuperadas en memoria para hacer el matching según la condición del join (cláusula ON). Cuando las tablas son grandes y el predicado no filtra suficientemente la tabla fact, esto es muy ineficiente.</p>
+								<p>Cuando se activa el Dynamic Filtering, se filtra la tabla derecha (fase #1) según el predicado y se obtienen posibles valores candidatos de las columnas usadas para el join. Estos valores se agregan como nuevas condiciones al predicado creando un nuevo filtro (filtro dinámico generado) usado para filtrar la tabla izquierda (fase #2). Esto ocurre en cada nodo worker (broadcast joins).</p>
+								<p>Adicionalmente, estas nuevas condiciones pueden ser enviadas al nodo coordinador que las agrega y redistribuye a todos los nodos workers para el filtrado de la tabla izquierda.</p>
+								<p>Ambas funcionalidades (dynamic filtering y dynamic filtering distribution) están activadas por defecto aunque pueden desactivarse usando las propiedades enable-dynamic-filtering y enable-coordinator-dynamic-filters-distribution de la configuración o sus respectivas de la sesión (enable_dynamic_filtering y enable_coordinator_dynamic_filters_distribution).</p>
+								<p>El Dynamic filtering está disponible sólo en algunos connectors (Hive[dynamic partition pruning], Memory, etc.).</p>
+								<h5>Las ventajas que se consiguen son:</h5>
+								<ul>
+									<li>Mejorar el rendimiento de las queries</li>
+									<li>Reducir el tráfico entre el Trino y las BBDD</li>
+									<li>Reducir la carga en las BBDD</li>
+								</ul>
+							</li>
+						</ol>
 					</aside>
 				</section>
 
@@ -834,7 +859,7 @@ http-server.authentication.password.user-mapping.file=etc/user-mapping.json
 								El cliente Trino-CLI deja entrar pero cualquier comando es rechazado con el mensaje <i>Error running command: Authentication failed: Principal is not allowed</i>.</p>
 							</li>
 							<li><strong>Regla #2:</strong>
-								<p>A los usuarios logeados que empiezan por "ext-" se les agrega el dominio "@canarias.org" y se les permite el acceso.</p>
+								<p>A los usuarios logeados que empiezan por "ext-" se les agrega el dominio "@canarias.es" y se les permite el acceso.</p>
 							</li>
 							<li><strong>Regla #3:</strong>
 								<p>Se permite el acceso a cualquier otro usuario.</p>
@@ -934,16 +959,70 @@ web-ui.enabled=false
 					</aside>
 				</section>
 
+				<section>
+					<h4>Pruebas</h4>
+					<ol start="4" style="font-size: 0.65em;">
+						<li>Control de acceso a catálogos y filtrado de datos</li>
+						<span style="font-size: 0.35em;">en el fichero <i>config.properties</i></span>
+						<pre style="font-size: 0.6em; width: 100%; margin-top: 4px; margin-bottom: 4px"><code data-trim data-noescape style="font-size: 0.6em;">
+hide-inaccessible-columns=false
+						</code></pre>
+						<span style="font-size: 0.35em;">en el fichero <i>access-control.properties</i></span>
+						<pre style="font-size: 0.6em; width: 100%; margin-top: 4px; margin-bottom: 4px"><code data-trim data-noescape style="font-size: 0.6em;">
+security.config-file=/etc/trino/cluster-auth-rules.test1.json
+						</code></pre>
+						
+						<span style="font-size: 0.35em;">fichero <i>cluster-auth-rules.test1.json</i></span>
+						<pre style="font-size: 0.6em; width: 100%; margin-top: 4px"><code data-trim data-noescape style="font-size: 0.6em;" data-line-numbers="3-20|8-8|11-14|15-18|21-23">
+{
+  "tables": [
+    {
+      "user": "ext-jnunper@canarias.es",
+      "catalog": "fermio",
+      "schema": "e59021a_rd",
+      "table": "dat_colcan20100131_v01",
+      "privileges": ["SELECT"],
+      "filter": "luid=501 or luid=502 or luid=503",
+      "columns": [
+        {
+          "name": "stid",
+          "allow": false
+        },
+        {
+          "name": "uuid",
+          "mask": "cast(concat(substring(uuid, 1, 23), '-*') as varchar(36))"
+        }
+      ]
+    },
+    {
+      "privileges": ["SELECT", "INSERT", "DELETE", "UPDATE", "OWNERSHIP", "GRANT_SELECT"]
+    }
+  ]
+}
+						</code></pre>
+					</ol>
+					<aside class="notes">
+						<ol style="font-size: 0.5em;"><b>Reglas:</b>
+							<li>Se controla el acceso del usuario <i>ext-jnunper@canarias</i> a la tabla <i>dat_colcan20100131_v01</i> del esquema <i>e59021a_rd</i> del catálogo <i>fermio</i> y a sus columnas.</li>
+							<li>Se filtra (excluye) cualquier registro que no cumpla la expresión de filtro <i>luid=501 or luid=502 or luid=503</i>.</li>
+							<li>Se bloquea el acceso a la columna <i>stid</i>. Cualquier query que devuelva esta columna fallará dando un error (propiedad <i>hide-inaccessible-columns</i> a false en el fichero <i>config.properties</i>).</li>
+							<li>Se enmascara la columna <i>uuid</i>, cambiando los últimos 12 dígitos por un asterisco.</li>
+							<li>Se conceden todos los permisos sobre todas las tablas de todos los catálogos a todos los usuarios.</li>
+						</ol>
+					</aside>
+				</section>
+
 <!-- CONCLUSIONES -->
 				<section>
-					<h4>Ventajas</h4>
+					<h4>Ventajas</h4> <img class="carita-r2-c1" /><br/>
 					<ul>
-						<li>Gestión uniforme de todas las fuentes de datos</li>
-						<li>Facilita el análisis de datos</li>
-						<li></li>
-						<li></li>
-						<li></li>
-						<li></li>
+						<li>Es gratis</li>
+						<img class="fragment fade-in-then-out current-visible top framed" src="img/memes/no-2.gif" />
+						<li class="fragment">Gestión uniforme de todas las fuentes de datos</li>
+						<li class="fragment">Facilita el análisis de datos</li>
+						<li class="fragment"></li>
+						<li class="fragment"></li>
+						<li class="fragment"></li>
 					</ul>
 					<aside class="notes">
 					</aside>
