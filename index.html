@@ -793,6 +793,146 @@ Splits: 1 total, 1 done (100,00%)
 <!-- INSTALACIÓN Y CONFIGURACIÓN -->
 
 <!-- PRUEBAS REALIZADAS -->
+				<section>
+					<h4>Pruebas</h4>
+					<ol start="1" style="font-size: 0.65em;">
+						<li>Mapeado de usuarios</li>
+						<!--<p>Bloquear el acceso al cluster del usuario ext-fake y se permite al resto, además se mapean los usuarios ext-*@canarias y *@gobiernodecanarias.org a los usuarios sin dominio.</p>-->
+						<span style="font-size: 0.5em;">en el fichero <i>config.properties</i></span>
+						<pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+http-server.authentication.type=PASSWORD
+http-server.authentication.password.user-mapping.file=etc/user-mapping.json
+						</code></pre>
+						
+						<span style="font-size: 0.5em;">fichero <i>user-mapping.json</i></span>
+						<pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;" data-line-numbers="3-6|7-12|13-16">
+{
+    "rules": [
+        {
+            "pattern": "etormed",
+            "allow": false
+        },
+        {
+            "pattern": "(ext-.+)",
+            "case": "lower",
+            "user": "$1@canarias.es",
+            "allow": true
+        },
+        {
+            "pattern": "(.+)",
+            "allow": true
+        }
+    ]
+}
+						</code></pre>
+					</ol>
+					<aside class="notes">
+						<ol style="font-size: 0.65em;">
+							<li><strong>Regla #1:</strong>
+								<p>Se bloquea el acceso al usuario "etormed".<br/>
+								La página del Web-UI no permite entrar aunque no da error.<br/>
+								El cliente Trino-CLI deja entrar pero cualquier comando es rechazado con el mensaje <i>Error running command: Authentication failed: Principal is not allowed</i>.</p>
+							</li>
+							<li><strong>Regla #2:</strong>
+								<p>A los usuarios logeados que empiezan por "ext-" se les agrega el dominio "@canarias.org" y se les permite el acceso.</p>
+							</li>
+							<li><strong>Regla #3:</strong>
+								<p>Se permite el acceso a cualquier otro usuario.</p>
+							</li>
+						</ol>
+					</aside>
+				</section>
+
+				<section>
+					<h4>Pruebas</h4>
+					<ol start="2" style="font-size: 0.65em;">
+						<li>Control de acceso a catálogos y queries</li>
+						<!--<p>Bloquear el acceso al cluster del usuario ext-fake y se permite al resto, además se mapean los usuarios ext-*@canarias y *@gobiernodecanarias.org a los usuarios sin dominio.</p>-->
+						<span style="font-size: 0.5em;">en el fichero <i>access-control.properties</i></span>
+						<pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;" data-line-numbers="2-2">
+security.config-file=/etc/trino/cluster-auth-rules.test1.json
+security.refresh-period=1s
+						</code></pre>
+						
+						<span style="font-size: 0.5em;">fichero <i>cluster-auth-rules.test1.json</i></span>
+						<pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;" data-line-numbers="3-7|8-11|12-14|17-20|21-24|25-27">
+{
+  "catalogs": [
+    {
+      "user": "(ext-jnunper@canarias.es|etormed)",
+      "catalog": "actinio",
+      "allow": "read-only"
+    },
+    {
+      "catalog": "actinio",
+      "allow": "none"
+    },
+    {
+      "allow": "all"
+    }
+  ],
+  "queries": [
+    {
+      "user": "ext-jnunper@canarias.es",
+      "allow": ["execute", "kill", "view"]
+    },
+    {
+      "user": "etormed",
+      "allow": ["execute", "kill"]
+    },
+    {
+      "allow": ["execute"]
+    }
+  ]
+}
+						</code></pre>
+					</ol>
+					<aside class="notes">
+						<ol style="font-size: 0.5em;">
+							<li><strong>Autorefresco:</strong>
+								<p>La propiedad <i>security.refresh-period</i> indica cada cuánto tiempo se debe recargar el fichero indicado por la propiedad <i>security.config-file</i>.</p>
+							</li>
+							<li><strong>Recordatorio:</strong>
+								<p>Si no se especifica ninguna regla de catálogo, todos los usuarios tienen acceso a todos los catálogos.</p>
+								<p>Cuando un usuario ejecuta una query, adquiere su propiedad<br/>
+								Si no se especifica ninguna regla de query, todos los usuarios tienen todos los permisos de query.</p>
+							</li>
+							<li><strong>Regla #1:</strong>
+								<p>A los usuarios <i>ext-jnunper@canarias</i> y <i>etormed</i> se les concede permisos de sólo lectura al catálogo <i>actinio</i>.</p>
+							</li>
+							<li><strong>Regla #2:</strong>
+								<p>Se prohibe acceder al catálogo <i>actinio</i> a cualquier otro usuario. Se permite el acceso al resto de catálogos a todos los usuarios.</p>
+							</li>
+							<li><strong>Regla #3:</strong>
+								<p>Se permite el acceso al resto de catálogos a todos los usuarios.</p>
+							</li>
+							<li><strong>Regla #4:</strong>
+								<p>El usuario <i>ext-jnunper@canarias</i> puede ejecutar queries propias (además de ver y matar) y puede ver y matar cualquier query ajena.</p>
+							</li>
+							<li><strong>Regla #5:</strong>
+								<p>El usuario <i>etormed</i> puede ejecutar queries propias (además de ver y matar) y matar cualquier query de cualquier usuario.</p>
+							</li>
+							<li><strong>Regla #6:</strong>
+								<p>El resto de usuarios puede ejecutar queries propias (además de ver y matar).</p>
+							</li>
+						</ol>
+					</aside>
+				</section>
+
+				<section>
+					<h4>Pruebas</h4>
+					<ol start="3" style="font-size: 0.65em;">
+						<li>Bloqueo de la interfaz web</li>
+						<!--<p>Bloquear el acceso al cluster del usuario ext-fake y se permite al resto, además se mapean los usuarios ext-*@canarias y *@gobiernodecanarias.org a los usuarios sin dominio.</p>-->
+						<span style="font-size: 0.5em;">en el fichero <i>config.properties</i></span>
+						<pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+web-ui.enabled=false
+						</code></pre>
+					</ol>
+					<aside class="notes">
+						<p>Cuando se desactiva, se muestra una página con la frase "Web Interface is Disabled".</p>
+					</aside>
+				</section>
 
 <!-- CONCLUSIONES -->
 				<section>
