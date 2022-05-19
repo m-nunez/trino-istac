@@ -18,7 +18,8 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-					<h1><code>Trino</code> &#128305;</h1>
+					<h1><code>Trino</code></h1>
+					<img class="top framed" src="img/Trino_homepage.png" />
 					<div class="r-stack">
 						<p class="fragment fade-out" data-fragment-index="0">
 							<span class="red">Un breve vistazo a Trino</span>
@@ -27,17 +28,14 @@
 							<span class="red">Un (no tan) breve vistazo a Trino</span>
 						</p>
 					</div>
-				</section>
-				
-				<section>
-				<h1><code>Trino</code> &#128305;</h1>
-				<p>
-					<span class="red">Un (no tan) breve vistazo a Trino</span>
-				</p>
-				<aside class="notes">
-				Shhh, these are your private notes 📝
-				Cosillas...				
-				</aside>
+					<aside class="notes">
+						<ol>
+							<li>Bienvenidos a todos. Gracias por asistir a esta charla sobre Trino, enmarcada dentro de la línea de sesiones técnicas que organiza habitualmente el ISTAC.</li>
+							<li>La presentación está disponible en la url que les paso por el chat (https://m-nunez.github.io/trino-istac/)</li>
+							<li>Quiero aclarar que no soy un experto en Trino. Esta es mi primera toma de contacto, y la intención es compartir con ustedes mis descubrimientos.</li>
+							<li>Intentaré no aburrir demasiado. Si lo desean, me pueden interrumpir en cualquier momento.</li>
+						</ol>
+					</aside>
 				</section>
 
 <!-- INTRODUCCION -->
@@ -50,6 +48,14 @@
 					<li>Pruebas realizadas</li>
 					<li>Conclusiones</li>
 				  </ol>
+					<aside class="notes">
+						<p>Empezaremos por dar una breve introducción para saber de qué vamos a hablar.</p>
+						<p>Veremos unos conceptos teóricos básicos sobre la materia.</p>
+						<p>Luego pasaremos a detallar las principales funcionalidades de Trino.</p>
+						<p>También explicaremos cómo se instala Trino y unas notas sobre su configuración</p>
+						<p>Mostraremos algunas pruebas que se han realizado</p>
+						<p>Y acabaremos con las conclusiones que he extraído</p>
+					</aside>
 				</section>
 
 				<section>
@@ -59,15 +65,52 @@
 				<section>
 					<h4>¿Qué es Trino?</h4>
 						<ul>
-							<li class="fragment" data-fragment-index="1">Es un motor SQL distribuido ideado para trabajar con grandes volúmenes de datos de una gran variedad de sistemas de datos.</li>
-							<li class="fragment" data-fragment-index="2">Diseñado para un rendimiento óptimo y escalable.</li>
-							<li class="fragment" data-fragment-index="3" style="color:red">No es una base de datos: no almacena datos.</li>
+							<li class="fragment" _data-fragment-index="1">Es un motor SQL distribuido ideado para trabajar con grandes volúmenes de datos de una gran variedad de sistemas de datos.</li>
+							<li class="fragment" _data-fragment-index="2">Desarrollado en Java (soporta Openjava). Tecnología madura y fiable.</li>
+							<li class="fragment" _data-fragment-index="2">Diseñado para un rendimiento óptimo y escalable.</li>
+							<li class="fragment" _data-fragment-index="3" style="color:red">No es una base de datos: no almacena datos.</li>
 						</ul>
 					<aside class="notes">
-					<ol>
-						<li>Por diseño, se evita la copia innecesaria de datos y se maximiza el paralelismo.</li>
-						<li>Preparado para Big Data, Machine Learning y AI.</li>
-						<li>Diseñado para gestionar eficientemente consultar grandes cantidades de datos mediante queries distribuidas y para análisis de datos (OLAP, OnLine Analytical Processing).</li>
+						<div style="font-size: 0.75em;">
+							<p>Características:</p>
+							<ol>
+								<li>Por diseño, se evita la copia innecesaria de datos y se maximiza el paralelismo.</li>
+								<li>Preparado para Big Data, Machine Learning y AI.</li>
+								<li>Diseñado para gestionar eficientemente consultar grandes cantidades de datos mediante queries distribuidas y para análisis de datos (OLAP, OnLine Analytical Processing).</li>
+							</ol>
+						</div>
+					</aside>
+				</section>
+				
+				<section>
+					<h4>¿Por qué usar Trino?</h4>
+					<div class="r-stack">
+						<div class="blk-full">
+							<ul>
+								<li class="fragment">Velocidad</li>
+								<li class="fragment">Escalado</li>
+								<li class="fragment">Simplicidad</li>
+								<li class="fragment">Versatilidad</li>
+								<li class="fragment">Análisis in-situ</li>
+								<li class="fragment">Query federation</li>
+								<li class="fragment">Funciona en cualquier lugar</li>
+								<li class="fragment">Confiable</li>
+								<li class="fragment">Abierto</li>
+							</ul>
+						</div>
+						<img class="top framed fragment" src="img/suatmm.gif" />
+					</div>
+					<aside class="notes">
+					<ol style="font-size: 0.75em;">
+						<li><b>Velocidad</b>: El procesador SQL tiene un alto nivel de paralelismo y ejecución distribuida.</li>
+						<li><b>Escalado</b>: Trabaja con los mayores bancos de datos</li>
+						<li><b>Simplicidad</b>: SQL ANSI que funciona con las herramientas BI más famosas (R, Tableau, Power BI, Superset, etc.).</li>
+						<li><b>Versatilidad</b>: Queries analíticas interactivas, queries batch masivas y apps que hacen consultas sobre grandes conjuntos de datos.</li>
+						<li><b>Análisis in-situ</b>: No es necesario copiar los datos a bases de datos secundarias para realizar estas consultas.</li>
+						<li><b>Query federation</b>: Accede a datos de múltiples fuentes en una única query.</li>
+						<li><b>Funciona en cualquier lugar</b>: Disponible on-premise y en entornos cloud (Amazon, Azure, Google Cloud, etc).</li>
+						<li><b>Confiable</b>: Usado en operaciones críticas a lo largo de todo el mundo.</li>
+						<li><b>Abierto</b>: Es un projecto open-source de la fundación Trino Software Foundation.</li>
 					</ol>
 					</aside>
 				</section>
@@ -101,7 +144,7 @@
 				
 				<section>
 					<h4>Conceptos básicos - I</h4>
-					<p class="fragment">Arquitectura del sistema</p>
+					<p>Arquitectura del sistema</p>
 					<ul>
 						<li class="fragment">
 							<p>Trino es un sistema en cluster.</p>
@@ -129,8 +172,13 @@
 				</section>
 				
 				<section>
+					<h4>Conceptos básicos - I</h4>
+					<img class="top framed" src="img/Trino_architecture.png" />
+				</section>
+				
+				<section>
 					<h4>Conceptos básicos - II</h4>
-					<p class="fragment">En relación a los datos</p>
+					<p>En relación a los datos</p>
 					<ol start="1">
 						<li class="fragment"><strong>Connector</strong>: Interfaz a sistemas de datos.</li>
 						<li class="fragment"><strong>Catalog</strong>: Metadatos de las fuentes de datos.</li>
@@ -149,7 +197,7 @@
 				
 				<section>
 					<h4>Conceptos básicos - III</h4>
-					<p class="fragment">En relación al modelo de ejecución</p>
+					<p>En relación al modelo de ejecución</p>
 					<ol start="1">
 						<li class="fragment"><strong>Statement</strong>: El comando SQL</li>
 						<li class="fragment"><strong>Query</strong>: Colección de objetos</li>
@@ -182,11 +230,80 @@
 				  <h3>Índice</h3>
 				  <ol>
 					<li>Introducción y conceptos básicos</li>
-					<li class="fragment highlight-red">Funcionalidades</li>
+					<li style="color: red">Funcionalidades</li>
 					<li>Instalación y configuración</li>
 					<li>Pruebas realizadas</li>
 					<li>Conclusiones</li>
 				  </ol>
+				</section>
+				
+				<section>
+					<h4>Funcionalidades - I</h4>
+					<ol start="1" _style="font-size: 0.875em;">
+						<li class="fragment"><b>Autenticación de usuarios</b></li>
+						<li class="fragment"><b>Autorización de usuarios</b></li>
+						<li class="fragment"><b>Clientes: Trino CLI, Trino Web UI y librerías para intergrar en aplicaciones.</b></li>
+						<li class="fragment"><b>Comunicaciones seguras</b></li>
+						<li class="fragment"><b>Extensible</b></li>
+					</ol>
+					<aside class="notes">
+					<ol style="font-size: 0.75em;">
+						<li><b>Autenticación</b>: Password file, LDAP, Salesforce, OAuth 2.0, Certificate, JSON Web Token (JWT) y Kerberos.</li>
+						<li><b>Tip</b>: Permite la autenticación LDAP sobre múltiples ramas del DA. Permite autorización de acceso en función de membresías a grupos del DA (y posiblemente otras expresiones LDAP).</li>
+						<li>El interface con el usuario es mínimo por lo que no requiere más sistemas de autenticación.</li>
+						<li><b>Autorización</b>: Se puede controlar el acceso de los usuarios a los recursos de forma muy selectiva. Permite agrupar a los usuarios para facilitar la gestión de los permisos.</li>
+						<li><b>Clientes</b>: Trino JDBC driver for Java/JVM, Starburst ODBC driver for Windows, trino-go-client for Go, presto-client-node for Node.js, lento for Node.js, dbt adapter, trino-python-client for Python, PyHive for Python, RPresto for R, trino-client-ruby for Ruby.</li>
+						<li><b>Seguridad</b>: Es posible securizar con TLS las conexiones entre los nodos y con los clientes. El nodo coordinador dispone de un interfaz web HTTP que permite lanzar queries y muchas otras operaciones. El cliente JDBC usa internamente este interfaz.</li>
+						<li><b>Extensible</b>: Altamente adaptable. Dispone de SPI (Service Provider Interface, tecnología java) para modificar controladores, extender o agregar distintos componentes software. También se puede señalizar eventos a herramientas externas mediante llamadas HTTP/S POST con información en JSON.</li>
+					</ol>
+					</aside>
+				</section>
+				
+				<section>
+					<section>
+						<h4>Funcionalidades - I</h4>
+						<ol start="1" _style="font-size: 0.875em;">
+							<li class="fragment"><b>Quotas sobre los recursos</b></li>
+							<li class="fragment"><b>Lenguaje SQL potente</b></li>
+							<li class="fragment"><b>Catalogs preinstalados</b></li>
+						</ol>
+					</section>
+					<section>
+						<h4>Ejemplo - Consulta de métrica</h4>
+						<p style="font-size: 0.65em;">Número de ficheros abiertos en cada nodo</p>
+						<pre><code data-trim data-noescape style="font-size: 0.6em;">
+trino> SELECT openfiledescriptorcount FROM jmx.current."java.lang:type=operatingsystem";
+ERROR: failed to open pager: Cannot run program "less": CreateProcess error=2, El sistema no puede encontrar el archivo especificado
+ openfiledescriptorcount
+-------------------------
+                    2929
+                    2928
+                    2989
+                    2933
+(4 rows)
+
+Query 20220519_002644_00001_7jb7m, FINISHED, 4 nodes
+Splits: 6 total, 6 done (100,00%)
+4,50 [4 rows, 32B] [0 rows/s, 7B/s]
+						</code></pre>
+					</section>
+					<aside class="notes">
+					<ol style="font-size: 0.75em;">
+						<li><b>Quotas</b>: Se pueden poner quotas al uso de recursos. Se encolan queries en función de la disponibilidad de recursos.</li>
+						<li><b>SQL</b>: Dispone de una cantidad importante (723) de funciones SQL incluídas propias de todo tipo (manejo de arrays, geospaciales, de soporte de dialectos SQL específicos como Teradata SQL, de información del sistema, machine learning, etc.).</li>
+						<li><b>Catalogs</b>:
+							<ul>
+								<li><b>TPCDS</b>: catálogo de sólo lectura para realizar pruebas de rendimiento.</li>
+								<li><b>TPCH</b>: catálogo de sólo lectura para realizar pruebas de rendimiento.</li>
+								<li><b>JMX</b>: catálogo de sólo lectura para una fácil monitorización avanzada del sistema completo mediante métricas JMX (Java Management) usando utilidades (jconsole, VisualVM, etc.) así como con queries SQL contra el catálogo jmx.
+								<p>Expone datos históricos, agregados y actuales y puede desactivarse y/o controlarse el acceso usando reglas sobre el catálogo jmx.</p>
+								<p>Con SQL, se puede consultar las métricas actuales usando el schema current (por ejemplo, el número de ficheros abiertos en cada nodo SELECT openfiledescriptorcount FROM jmx.current."java.lang:type=operatingsystem";) ó consultar historiales almacenados en memoria usando el schema history de aquellas métricas que se hayan configurado en el fichero jmx.properties.</p></li>
+								<li><b></b>: </li>
+								<li><b></b>: </li>
+							</ul>
+						</li>
+					</ol>
+					</aside>
 				</section>
 				
 				<section>
@@ -489,11 +606,45 @@ Splits: 1 total, 1 done (100,00%)
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-				showNotes: false,
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
 			});
 		</script>
+
+    <!-- Hack to add header/footer: https://stackoverflow.com/a/37518822 👇🏻 -->
+
+    <!-- Create hidden header/footer <div> -->
+    <div id="hidden" style="display: none">
+      <div id="header">
+        <div id="header-left"></div>
+        <div id="header-right">
+          <img class="logo" src="img/trino_logo.png" alt="Trino logo" />
+        </div>
+        <div id="footer-left">
+          <img class="logo" src="img/istac-logo.svg" alt="ISTAC LOGO" />
+          <div class="label">
+            <a href="http://www.gobiernodecanarias.org/istac/">ISTAC</a> | Miguel Núñez<a href="https://evm.net"> EMV</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript">
+      // On Reveal.js ready event, copy header/footer <div> into each `.slide-background` <div>
+      var header = $("#header").html();
+      if (window.location.search.match(/print-pdf/gi)) {
+        Reveal.addEventListener("ready", function (event) {
+          $(".slide-background").append(header);
+        });
+      } else {
+        $("div.reveal").append(header);
+      }
+
+      Reveal.configure({ pdfSeparateFragments: false });
+    </script>
+
+    <!-- Hack to add header/footer: https://stackoverflow.com/a/37518822 👆🏻 -->
 	</body>
 </html>
