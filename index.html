@@ -265,8 +265,37 @@
 						<ol start="1" _style="font-size: 0.875em;">
 							<li class="fragment"><b>Quotas sobre los recursos</b></li>
 							<li class="fragment"><b>Lenguaje SQL potente</b></li>
-							<li class="fragment"><b>Catalogs preinstalados</b></li>
+							<li class="fragment"><b>Connectors preinstalados</b>
+								<ul class="fragment fade-in-then-out" style="font-size: 0.65em;">
+									<li>TPCDS</li>
+									<li>TPCH</li>
+									<li>JMX</li>
+									<li>SYSTEM</li>
+									<li>MEMORY</li>
+									<li>BLACK HOLE</li>
+									<li><b>...</b></li>
+								</ul>
+							</li>
 						</ol>
+						<aside class="notes">
+							<ol style="font-size: 0.55em;">
+								<li><b>Quotas</b>: Se pueden poner quotas al uso de recursos. Se encolan queries en función de la disponibilidad de recursos.</li>
+								<li><b>SQL</b>: Dispone de una cantidad importante (723) de funciones SQL incluídas propias de todo tipo (manejo de arrays, geospaciales, de soporte de dialectos SQL específicos como Teradata SQL, de información del sistema, machine learning, etc.).</li>
+								<li><b>Connectors</b>:
+									<ul>
+										<li><b>TPCDS</b>: (TPC Benmark DS) conector de sólo lectura para realizar pruebas de rendimiento estandarizadas.</li>
+										<li><b>TPCH</b>: (TPC Benmark H) conector de sólo lectura para realizar pruebas de rendimiento estandarizadas.</li>
+										<li><b>JMX</b>: conector de sólo lectura para una fácil monitorización avanzada del sistema completo mediante métricas JMX (Java Management) usando utilidades (jconsole, VisualVM, etc.) así como con queries SQL.</br>
+										Expone datos históricos, agregados y actuales y puede desactivarse y/o controlarse el acceso usando reglas sobre el catálogo jmx.</br>
+										Con SQL, se puede consultar las métricas actuales usando el schema <i>current</i> (por ejemplo, el número de ficheros abiertos en cada nodo SELECT openfiledescriptorcount FROM jmx.current."java.lang:type=operatingsystem";) ó consultar historiales almacenados en memoria usando el schema <i>history</i> de aquellas métricas que se hayan configurado en las propiedades del catálogo (fichero <i>jmx.properties</i>).</li>
+										<li><b>SYSTEM</b>: conector de sólo lectura para obtener distinta información y métricas del sistema mediante queries SQL.</li>
+										<li><b>MEMORY</b>: conector de escritura limitada (básicamente sólo se permite la insersión y el borrado completo de tablas).</br>Es un conector especial que reside en la memoria RAM de los nodos workers y que sirve para acelerar queries, almacenando temporalmente datos traídos desde fuentes externas.</br>El contenido de este conector se pierde al reiniciar Trino.</li>
+										<li><b>BLACK HOLE</b>: Similar al dispositivo /dev/null de Linux, todo lo que se manda allí desaparece.</br>Útil para hacer pruebas de rendimiento.</li>
+										<li><b>Otros</b>: Y muchísimos más...</li>
+									</ul>
+								</li>
+							</ol>
+						</aside>
 					</section>
 					<section>
 						<h4>Ejemplo - Consulta de métrica</h4>
@@ -287,35 +316,28 @@ Splits: 6 total, 6 done (100,00%)
 4,50 [4 rows, 32B] [0 rows/s, 7B/s]
 						</code></pre>
 					</section>
-					<aside class="notes">
-					<ol style="font-size: 0.75em;">
-						<li><b>Quotas</b>: Se pueden poner quotas al uso de recursos. Se encolan queries en función de la disponibilidad de recursos.</li>
-						<li><b>SQL</b>: Dispone de una cantidad importante (723) de funciones SQL incluídas propias de todo tipo (manejo de arrays, geospaciales, de soporte de dialectos SQL específicos como Teradata SQL, de información del sistema, machine learning, etc.).</li>
-						<li><b>Catalogs</b>:
-							<ul>
-								<li><b>TPCDS</b>: catálogo de sólo lectura para realizar pruebas de rendimiento.</li>
-								<li><b>TPCH</b>: catálogo de sólo lectura para realizar pruebas de rendimiento.</li>
-								<li><b>JMX</b>: catálogo de sólo lectura para una fácil monitorización avanzada del sistema completo mediante métricas JMX (Java Management) usando utilidades (jconsole, VisualVM, etc.) así como con queries SQL contra el catálogo jmx.
-								<p>Expone datos históricos, agregados y actuales y puede desactivarse y/o controlarse el acceso usando reglas sobre el catálogo jmx.</p>
-								<p>Con SQL, se puede consultar las métricas actuales usando el schema current (por ejemplo, el número de ficheros abiertos en cada nodo SELECT openfiledescriptorcount FROM jmx.current."java.lang:type=operatingsystem";) ó consultar historiales almacenados en memoria usando el schema history de aquellas métricas que se hayan configurado en el fichero jmx.properties.</p></li>
-								<li><b></b>: </li>
-								<li><b></b>: </li>
-							</ul>
-						</li>
-					</ol>
-					</aside>
 				</section>
 				
 				<section>
 					<h4>Funcionalidades - I</h4>
-					<ol start="1">
-						<li class="fragment"><strong>SQL-on-Anything</strong>: SQL para todo.</li>
+					<ol start="1" style="font-size: 0.75em;">
+						<li class="fragment"><strong>SQL-on-Anything</strong>: SQL para todo.
+							<ul style="font-size: 0.65em;">
+								<li>TPCDS</li>
+								<li>TPCH</li>
+								<li>JMX</li>
+								<li>SYSTEM</li>
+								<li>MEMORY</li>
+								<li>BLACK HOLE</li>
+								<li><b>...</b></li>
+							</ul>
+						</li>
 						<li class="fragment"><strong>Federated Query</strong>: Queries sobre varias fuentes de datos.</li>
 						<li class="fragment"><strong>Virtual Data Warehouse</strong>: Almacenamiento homogéneo.</li>
 						<li class="fragment"><strong>Procesamiento/Almacenamiento</strong>: Aisla los recursos usados por las queries de los usados por el almacenamiento.</li>
 					</ol>
 					<aside class="notes">
-					<ol style="font-size: 0.875em;">
+					<ol style="font-size: 0.65em;">
 						<li><strong>SQL-on-Anything</strong>: Provee acceso usando un SQL estandarizado a muchos tipos de sistemas de datos: Distributed Object Storage, RDBMS, NoSQL, etc. Evitando las ETLs para cargar en sistemas intermedios.</li>
 						<li><strong>Federated Query</strong>: Soporta queries que referencien distintas fuentes de datos en un sólo comando.</li>
 						<li><strong>Virtual Data Warehouse</strong>: Muestra un almacenamiento de datos uniforme, ocultando las particularidades de cada uno de los sistemas que contienen los datos reales. Soporta el uso de sistemas de datos masivos en la nube (raw Data Lakes como HDFS y AWS S3). Amazon ha usado Presto en su Amazon Athena para que los usuarios puedan hacer consultas SQL interactivas sobre su sistema de datos Amazon S3.</li>
@@ -348,16 +370,16 @@ Splits: 6 total, 6 done (100,00%)
 							</li>
 						</ol>
 						<aside class="notes">
-							<ol style="font-size: 0.875em;">
+							<ol style="font-size: 0.65em;">
 								<li>Trino utiliza información estadística de las tablas para optimizar las queries. Esta información la proporcionan los connectors y el nivel de disponibilidad varía de uno a otro.</li>
 								<li>Los datos estadísticos usados son los siguientes:
 									<ul>
-										<li>Tabla - Row count ==> Número de filas de la tabla</li>
-										<li>Columna - Data size ==> tamaño del dato que debe ser leído</li>
-										<li>Columna - Nulls Fractino ==> porcentaje de valores nulos</li>
-										<li>Columna - Distinct value count ==> número de valores diferentes</li>
-										<li>Columna - Low value ==> el valor mínimo</li>
-										<li>Columna - High value ==> el valor máximo</li>
+										<li><b>Tabla</b>: Row count == Número de filas de la tabla</li>
+										<li><b>Columna</b>: Data size == tamaño del dato que debe ser leído</li>
+										<li><b>Columna</b>: Nulls Fractino == porcentaje de valores nulos</li>
+										<li><b>Columna</b>: Distinct value count == número de valores diferentes</li>
+										<li><b>Columna</b>: Low value == el valor mínimo</li>
+										<li><b>Columna</b>: High value == el valor máximo</li>
 									</ul>
 								</li>
 								<li>Esta información puede consultarse usando el comando SQL <i>SHOW STATS</i>.</li>
@@ -619,7 +641,7 @@ Splits: 1 total, 1 done (100,00%)
       <div id="header">
         <div id="header-left"></div>
         <div id="header-right">
-          <img class="logo" src="img/trino_logo.png" alt="Trino logo" />
+          <img class="logo" src="img/trino_logo.png" title="Commander Bun Bun" alt="Trino logo" />
         </div>
         <div id="footer-left">
           <img class="logo" src="img/istac-logo.svg" alt="ISTAC LOGO" />
