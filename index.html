@@ -1090,7 +1090,50 @@ http-server.authentication.password.user-mapping.file=etc/user-mapping.json
 							</code></pre>
 						</ol>
 						<aside class="notes">
-							<p style="font-size: 0.5em;"></p>
+							<p style="font-size: 0.5em;">Varios niveles de autorización:</p>						
+							<ul style="font-size: 0.5em;">
+								<li>A nivel de cluster
+									<ul>
+										<li>System access control que controla el acceso a nivel global (con un todo o nada) y precede a cualquier otro nivel. Simplifica al máximo el control (por ejemplo, se puede poner todo en modo read-only con sólo poner una propiedad [access-control.name=read-only])</li>
+										<li>Usando un único fichero JSON que contiene las reglas de acceso a los recursos en todo el cluster.</li>
+										<li>En función del usuario/role/grupo, catálogo y propietario del query, se puede controlar:
+											<ul>
+												<li>la visibilidad del catálogo/schema/tabla.</li>
+												<li>el acceso (all,none) al catálogo/schema.</li>
+												<li>el acceso a tablas/columnas (select, insert, update, delete, ownership, grant_select).</li>
+												<li>Filtrar filas de tablas usando expresiones en función del usuario/role/grupo/catalog/schema/tabla.<br/>
+												Ejemplo: que un usuario sólo pueda ver sus pedidos dentro de una tabla de pedidos.</li>
+												<li>Enmascarar columnas usando expresiones con operadores, en función del usuario/role/grupo/catalog/schema/tabla.<br/>
+												Ejemplo: en función del usuario se puede mostrar todos los dígitos de la tarjeta de crédito excepto los 4 últimos que se reemplazan por ‘X’ (usuarios avanzados) y bloquear el acceso al resto de usuarios</li>
+												<li>el acceso a propiedades del sistema/catálogo (write)</li>
+												<li>el acceso a las queries (view, execute y kill)</li>
+												<li>la impersonación de otros usuarios</li>
+												<li>la información del sistema (read,write)</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>A nivel de catálogo
+									<ul>
+										<li>Un fichero JSON por catálogo con las reglas a aplicar.<br/>
+										En función del usuario/grupo/schema/tabla/columna y expresiones de filtros, se puede controlar:
+											<ul>
+												<li>A quién se considera propietario del schema.</li>
+												<li>Privilegios de acceso a una tabla: SELECT, INSERT, DELETE, UPDATE, OWNERSHIP, GRANT_SELECT.</li>
+												<li>Filtrar filas de tablas usando expresiones en función del usuario/grupo/schema/tabla.<br/>
+												Ejemplo: que un usuario sólo pueda ver sus pedidos dentro de una tabla de pedidos.</li>
+												<li>Enmascarar columnas usando expresiones con operadores, en función del usuario/grupo/schema/tabla.<br/>
+												Ejemplo: en función del usuario se puede mostrar todos los dígitos de la tarjeta de crédito excepto los 4 últimos que se reemplazan por ‘X’ (usuarios avanzados) y bloquear el acceso al resto de usuarios</li>
+												<li></li>
+												<li></li>
+												<li></li>
+											</ul>
+										</li>
+										<li></li>
+										<li></li>
+									</ul>
+								</li>
+							</ul>
 						</aside>
 					</section>
 					<section>
