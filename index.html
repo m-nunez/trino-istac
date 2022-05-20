@@ -113,6 +113,7 @@
 					<aside class="notes">
 						<ol>
 							<li>Bienvenidos a todos. Gracias por asistir a esta charla sobre Trino, enmarcada dentro de la línea de sesiones técnicas que organiza habitualmente el ISTAC.</li>
+							<li>Para el registro, mi nombre es Miguel Núñez de la empresa Ecosistemas Virtuales y Modulares (EVM), soy informático y actualmente estoy desarrollando labores de soporte informático para el ISTAC.</li>
 							<li>La presentación está disponible en la url que les paso por el chat (https://m-nunez.github.io/trino-istac/)</li>
 							<li>Quiero aclarar que no soy un experto en Trino. Esta es mi primera toma de contacto, y la intención es compartir con ustedes mis descubrimientos.</li>
 							<li>Intentaré no aburrir demasiado. Si lo desean, me pueden interrumpir en cualquier momento.</li>
@@ -180,7 +181,7 @@
 								<li class="fragment">Abierto</li>
 							</ul>
 						</div>
-						<img class="top framed fragment" src="img/suatmm.gif" />
+						<img class="top framed fragment" src="img/memes/suatmm.gif" />
 					</div>
 					<aside class="notes">
 					<ol style="font-size: 0.75em;">
@@ -301,7 +302,7 @@
 							<li class="fragment"><strong>Stage</strong>: Pasos</li>
 							<li class="fragment"><strong>Task</strong>: Tarea</li>
 							<li class="fragment"><strong>Driver</strong>: Subtareas</li>
-							<li class="fragment"><strong>Operator</strong>: </li>
+							<li class="fragment"><strong>Operator</strong>: Operadores</li>
 							<li class="fragment"><strong>Otros</strong>: Exchange, Split</li>
 						</ol>
 						<aside class="notes">
@@ -400,8 +401,8 @@
 				</section>
 				
 				<section>
-					<h4>Funcionalidades - I</h4>
-					<ol start="1" _style="font-size: 0.875em;">
+					<h4>Funcionalidades - II</h4>
+					<ol start="2">
 						<li class="fragment"><b>Autenticación de usuarios</b></li>
 						<li class="fragment"><b>Autorización de usuarios</b></li>
 						<li class="fragment"><b>Clientes: Trino CLI, Trino Web UI y librerías para intergrar en aplicaciones.</b></li>
@@ -423,8 +424,8 @@
 				
 				<section>
 					<section>
-						<h4>Funcionalidades - I</h4>
-						<ol start="1" _style="font-size: 0.875em;">
+						<h4>Funcionalidades - III</h4>
+						<ol start="7">
 							<li class="fragment"><b>Quotas sobre los recursos</b></li>
 							<li class="fragment"><b>Lenguaje SQL potente</b></li>
 							<li class="fragment"><b>Connectors preinstalados</b>
@@ -482,8 +483,8 @@ Splits: 6 total, 6 done (100,00%)
 				
 				<section>
 					<section>
-						<h4>Funcionalidades - I</h4>
-						<ol start="1" style="font-size: 0.75em;">
+						<h4>Funcionalidades - IV</h4>
+						<ol start="10" style="font-size: 0.75em;">
 							<li class="fragment"><strong>SQL-on-Anything</strong>: SQL para todo.
 								<ul style="font-size: 0.65em;">
 									<li>TPCDS</li>
@@ -551,8 +552,8 @@ Splits: 6 total, 6 done (100,00%)
 				
 				<section>
 					<section>
-						<h4>Funcionalidades - II</h4>
-						<ol start="1">
+						<h4>Funcionalidades - V</h4>
+						<ol start="14">
 							<li class="fragment"><strong>Query optimizer</strong>: Uso de datos estadísticos.
 								<ul>
 									<li class="fragment">Tablas
@@ -666,8 +667,8 @@ Splits: 1 total, 1 done (100,00%)
 				
 				<section>
 					<section>
-						<h4>Funcionalidades - III</h4>
-						<ol start="2">
+						<h4>Funcionalidades - VI</h4>
+						<ol start="14">
 							<li class="fragment"><strong>Query optimizer</strong>: Pushdown.
 								<ul>
 									<li>Predicate (WHERE)</li>
@@ -709,12 +710,12 @@ Splits: 1 total, 1 done (100,00%)
 				</section>
 				
 				<section>
-					<h4>Funcionalidades - IV</h4>
-					<ul>
+					<h4>Funcionalidades - VII</h4>
+					<ol start="15">
 						<li class="fragment" data-fragment-index="0">Spill to disk</li>
 						<li class="fragment" data-fragment-index="1">Dynamic filtering</li>
 						<img class="fragment top framed" data-fragment-index="1" src="img/585px-Joins_del_SQL.svg.png" style="background-color: #6DB3F2;" />
-					</ul>
+					</ol>
 					<aside class="notes">
 						<ol style="font-size: 0.875em;">
 							<li><strong>Spill to disk</strong>
@@ -744,11 +745,11 @@ Splits: 1 total, 1 done (100,00%)
 
 				
 				<section>
-					<h4>Funcionalidades - V</h4>
-					<ul>
+					<h4>Funcionalidades - VIII</h4>
+					<ol start="17">
 						<li class="fragment">Resource groups</li>
 						<li class="fragment">Session properties</li>
-					</ul>
+					</ol>
 					<aside class="notes">
 						<ol style="font-size: 0.875em;">
 							<li><strong>Resource groups</strong>
@@ -771,11 +772,11 @@ Splits: 1 total, 1 done (100,00%)
 				
 				<section>
 					<section>
-						<h4>Funcionalidades - VI</h4>
-						<ul>
+						<h4>Funcionalidades - IX</h4>
+						<ol start="19">
 							<li class="fragment">Distributed sort</li>
 							<li class="fragment">Graceful shutdown</li>
-						</ul>
+						</ol>
 						<aside class="notes">
 							<ol style="font-size: 0.875em;">
 								<li><strong>Distributed sort</strong>
@@ -799,8 +800,8 @@ Splits: 1 total, 1 done (100,00%)
 
 				
 				<section>
-					<h4>Funcionalidades - VII</h4>
-					<ul>
+					<h4>Funcionalidades - X</h4>
+					<ol start="21">
 						<li class="fragment">Fault-tolerant
 							<ul>
 								<li>Query retry</li>
@@ -808,7 +809,7 @@ Splits: 1 total, 1 done (100,00%)
 							</ul>
 						</li>
 						<li class="fragment">JMX</li>
-					</ul>
+					</ol>
 					<aside class="notes">
 						<ol style="font-size: 0.875em;">
 							<li><strong>Fault-tolerant</strong>
@@ -1553,6 +1554,31 @@ internal-communication.shared-secret=KCZZItOB+oAMHi5jH59pt4pBE0l4zQc
 					</aside>
 				</section>
 
+				<section>
+					<h4>Configuración Trino</h4>
+					<ol start="5" style="font-size: 0.5em;">
+						<li>Configuración del cliente Trino-CLI</li>
+						<ul>
+							<li class="fragment current-visible"><b>Prerrequisito</b>: Instalar el certificado del servidor en el truststore de Java. (Windows)
+								<ol>
+									<li><span  style="font-size: 0.8em;">Descargar el certificado desde el servidor.</span><br/><pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape>keytool -printcert -rfc -sslserver cinco-ap01p.gobiernodecanarias.net:443 > cinco-ap01p.gobiernodecanarias.net.pem</code></pre></li>
+									<li><span  style="font-size: 0.8em;">Localizar la ruta completa al truststore usado por Java.</span><br/><pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape>dir /s "C:\Program Files\Java\cacerts"</code></pre></li>
+									<li><span  style="font-size: 0.8em;">Instalar el certificado en el truststore.</span><br/><pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape>keytool -import -trustcacerts -keystore cacerts -storepass changeit -alias cinco-ap01p -file cinco-ap01p.gobiernodecanarias.net.pem</code></pre></li>
+								</ol>
+							</li>
+						</ul>
+						<ol>
+							<li class="fragment">Descargar desde <a href="https://docs.starburst.io/data-consumer/clients/cli.html">https://docs.starburst.io/data-consumer/clients/cli.html</a> el cliente Trino CLI y el cliente Trino JDBC.</li>
+							<li class="fragment">Lanzar con el comando
+							<pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape>java -jar trino-cli-373-executable.jar --server https://cinco-ap01p.gobiernodecanarias.net --user &lt;USUARIO&gt; --password</code></pre>
+							</li>
+						</ol>
+					</ol>
+					<aside class="notes">
+						<p style="font-size: 0.5em;"></p>
+					</aside>
+				</section>
+
 <!-- PRUEBAS REALIZADAS -->
 				<section>
 				  <h3>Índice</h3>
@@ -1570,7 +1596,7 @@ internal-communication.shared-secret=KCZZItOB+oAMHi5jH59pt4pBE0l4zQc
 					<ol start="1" style="font-size: 0.65em;">
 						<li>Mapeado de usuarios</li>
 						<!--<p>Bloquear el acceso al cluster del usuario ext-fake y se permite al resto, además se mapean los usuarios ext-*@canarias y *@gobiernodecanarias.org a los usuarios sin dominio.</p>-->
-						<span style="font-size: 0.5em;">en el fichero <i>config.properties</i></span>
+						<span style="font-size: 0.5em;">fichero <i>config.properties</i></span>
 						<pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
 http-server.authentication.type=PASSWORD
 http-server.authentication.password.user-mapping.file=etc/user-mapping.json
@@ -1620,7 +1646,7 @@ http-server.authentication.password.user-mapping.file=etc/user-mapping.json
 					<ol start="2" style="font-size: 0.65em;">
 						<li>Control de acceso a catálogos y queries</li>
 						<!--<p>Bloquear el acceso al cluster del usuario ext-fake y se permite al resto, además se mapean los usuarios ext-*@canarias y *@gobiernodecanarias.org a los usuarios sin dominio.</p>-->
-						<span style="font-size: 0.5em;">en el fichero <i>access-control.properties</i></span>
+						<span style="font-size: 0.5em;">fichero <i>access-control.properties</i></span>
 						<pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;" data-line-numbers="2-2">
 security.config-file=/etc/trino/cluster-auth-rules.test1.json
 security.refresh-period=1s
@@ -1696,7 +1722,7 @@ security.refresh-period=1s
 					<ol start="3" style="font-size: 0.65em;">
 						<li>Bloqueo de la interfaz web</li>
 						<!--<p>Bloquear el acceso al cluster del usuario ext-fake y se permite al resto, además se mapean los usuarios ext-*@canarias y *@gobiernodecanarias.org a los usuarios sin dominio.</p>-->
-						<span style="font-size: 0.5em;">en el fichero <i>config.properties</i></span>
+						<span style="font-size: 0.5em;">fichero <i>config.properties</i></span>
 						<pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
 web-ui.enabled=false
 						</code></pre>
@@ -1710,11 +1736,11 @@ web-ui.enabled=false
 					<h4>Pruebas</h4>
 					<ol start="4" style="font-size: 0.65em;">
 						<li>Control de acceso a catálogos y filtrado de datos</li>
-						<span style="font-size: 0.35em;">en el fichero <i>config.properties</i></span>
+						<span style="font-size: 0.35em;">fichero <i>config.properties</i></span>
 						<pre style="font-size: 0.6em; width: 100%; margin-top: 4px; margin-bottom: 4px"><code data-trim data-noescape style="font-size: 0.6em;">
 hide-inaccessible-columns=false
 						</code></pre>
-						<span style="font-size: 0.35em;">en el fichero <i>access-control.properties</i></span>
+						<span style="font-size: 0.35em;">fichero <i>access-control.properties</i></span>
 						<pre style="font-size: 0.6em; width: 100%; margin-top: 4px; margin-bottom: 4px"><code data-trim data-noescape style="font-size: 0.6em;">
 security.config-file=/etc/trino/cluster-auth-rules.test1.json
 						</code></pre>
@@ -1971,9 +1997,15 @@ security.config-file=/etc/trino/cluster-auth-rules.test1.json
 				</section>
 
 <!-- FINAL -->
-				<section id="grand-finale">
-					<h2>Fin</h2>
-					<a href="#/0">Volver a empezar</a>
+				<section>
+					<section id="grand-finale">
+						<img class="top framed" src="img/memes/fireworks-celebrate.gif" />
+						<h2>Fin</h2>
+						<a href="#/0" style="font-size: 0.5em;">Volver a empezar</a>
+					</section>
+					<section>
+						<img class="top framed" src="img/memes/fireworks-dance.gif" />
+					</section>
 				</section>
 			</div>
 		</div>
@@ -2005,8 +2037,8 @@ security.config-file=/etc/trino/cluster-auth-rules.test1.json
         </div>
         <div id="footer-left">
           <img class="logo" src="img/istac-logo.svg" alt="ISTAC LOGO" />
-          <div class="label">
-            <a href="http://www.gobiernodecanarias.org/istac/">ISTAC</a> | Miguel Núñez<a href="https://evm.net"> EMV</a>
+          <div class="label" style="font-size: 0.5em;">
+            <a href="http://www.gobiernodecanarias.org/istac/">ISTAC</a> | Miguel Núñez<a href="https://evm.net"> EMV</a> | 2022
           </div>
         </div>
       </div>
