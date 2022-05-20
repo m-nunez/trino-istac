@@ -292,34 +292,40 @@
 				</section>
 				
 				<section>
-					<h4>Conceptos básicos - III</h4>
-					<p>En relación al modelo de ejecución</p>
-					<ol start="1">
-						<li class="fragment"><strong>Statement</strong>: El comando SQL</li>
-						<li class="fragment"><strong>Query</strong>: Colección de objetos</li>
-						<li class="fragment"><strong>Stage</strong>: Pasos</li>
-						<li class="fragment"><strong>Task</strong>: Tarea</li>
-						<li class="fragment"><strong>Driver</strong>: Subtareas</li>
-						<li class="fragment"><strong>Operator</strong>: </li>
-						<li class="fragment"><strong>Otros</strong>: Exchange, Split</li>
-					</ol>
-					<aside class="notes">
-					<ol style="font-size: 0.75em;">
-						<li><strong>Statement</strong>: son las instrucciones SQL-ANSI que admite el Trino, tal y como se reciben del cliente.</li>
-						<li><strong>Query</strong>: Es una colección de stages, tasks, splits, connectors y otros elementos trabajando sobre un conjunto de fuentes de datos para producir un resultado. Se crea al parsear un statement, generandose un plan de ejecución distribuida que se llevará a cabo mediante una serie de stages interconectados.</li>
-						<li><strong>Stage</strong>: Son los diferentes pasos organizados jerárquicamente (árbol) en que se descompone una query, formando el plan de ejecución distribuida. Cada stage recoge los resultados de sus descendientes directos y los pasa a su ancestro. Los stage se ejecutan en paralelo en el nodo coordinador y generan una serie de tasks que se distribuyen en la red de nodos workers.</li>
-						<li><strong>Task</strong>: Son procesos que toman entradas y generan salidas. Igual que las stages, pueden ser ejecutados en paralelo.</li>
-						<li><strong>Driver</strong>: Las tasks se descomponen en múltiples drivers que procesan en paralelo datos en memoria usando operators. Son los componentes que más abajo están en el planning de la query.</li>
-						<li><strong>Operator</strong>: Consume y transforma datos. Algunos operators recuperan datos de un conector, otros filtran datos según un predicado, etc.</li>
-						<li><strong>Otros</strong>:
-							<ul>
-								<li><strong>Exchange</strong>: Se encargan de mover los datos de un buffer a otro de las distintas tasks.</li>
-								<li><strong>Split</strong>: Son las secciones, de un conjunto de datos más extenso, que son recuperados desde un connector (nivel más bajo del planning de la query) o desde stages.</li>
-							</ul>
-						</li>
-					</ol>
-					</aside>
+					<section>
+						<h4>Conceptos básicos - III</h4>
+						<p>En relación al modelo de ejecución</p>
+						<ol start="1">
+							<li class="fragment"><strong>Statement</strong>: El comando SQL</li>
+							<li class="fragment"><strong>Query</strong>: Colección de objetos</li>
+							<li class="fragment"><strong>Stage</strong>: Pasos</li>
+							<li class="fragment"><strong>Task</strong>: Tarea</li>
+							<li class="fragment"><strong>Driver</strong>: Subtareas</li>
+							<li class="fragment"><strong>Operator</strong>: </li>
+							<li class="fragment"><strong>Otros</strong>: Exchange, Split</li>
+						</ol>
+						<aside class="notes">
+						<ol style="font-size: 0.75em;">
+							<li><strong>Statement</strong>: son las instrucciones SQL-ANSI que admite el Trino, tal y como se reciben del cliente.</li>
+							<li><strong>Query</strong>: Es una colección de stages, tasks, splits, connectors y otros elementos trabajando sobre un conjunto de fuentes de datos para producir un resultado. Se crea al parsear un statement, generandose un plan de ejecución distribuida que se llevará a cabo mediante una serie de stages interconectados.</li>
+							<li><strong>Stage</strong>: Son los diferentes pasos organizados jerárquicamente (árbol) en que se descompone una query, formando el plan de ejecución distribuida. Cada stage recoge los resultados de sus descendientes directos y los pasa a su ancestro. Los stage se ejecutan en paralelo en el nodo coordinador y generan una serie de tasks que se distribuyen en la red de nodos workers.</li>
+							<li><strong>Task</strong>: Son procesos que toman entradas y generan salidas. Igual que las stages, pueden ser ejecutados en paralelo.</li>
+							<li><strong>Driver</strong>: Las tasks se descomponen en múltiples drivers que procesan en paralelo datos en memoria usando operators. Son los componentes que más abajo están en el planning de la query.</li>
+							<li><strong>Operator</strong>: Consume y transforma datos. Algunos operators recuperan datos de un conector, otros filtran datos según un predicado, etc.</li>
+							<li><strong>Otros</strong>:
+								<ul>
+									<li><strong>Exchange</strong>: Se encargan de mover los datos de un buffer a otro de las distintas tasks.</li>
+									<li><strong>Split</strong>: Son las secciones, de un conjunto de datos más extenso, que son recuperados desde un connector (nivel más bajo del planning de la query) o desde stages.</li>
+								</ul>
+							</li>
+						</ol>
+						</aside>
+					</section>
+					<section>
+						<img class="top framed" src="img/pantallazos/p007.png" />
+					</section>
 				</section>
+				
 
 <!-- FUNCIONALIDADES -->
 				<section>
@@ -367,21 +373,29 @@
 					</section>
 					<section>
 						<!-- Imagen #1 -->
+						<img class="top framed" src="img/pantallazos/p003.png" />
 					</section>
 					<section>
 						<!-- Imagen #2 -->
+						<img class="top framed" src="img/pantallazos/p001.png" />
 					</section>
 					<section>
 						<!-- Imagen #3 -->
+						<img class="top framed" src="img/pantallazos/p004.png" />
 					</section>
 					<section>
 						<!-- Imagen #4 -->
+						<img class="top framed" src="img/pantallazos/p005.png" />
 					</section>
 					<section>
 						<!-- Imagen #5 -->
+						<img class="top framed" src="img/pantallazos/p006.png" />
 					</section>
 					<section>
-						<!-- Imagen #6 -->
+						<img class="top framed" src="img/pantallazos/p011.png" />
+					</section>
+					<section>
+						<img class="top framed" src="img/pantallazos/p009.png" />
 					</section>
 				</section>
 				
@@ -816,8 +830,698 @@ Splits: 1 total, 1 done (100,00%)
 				</section>
 
 <!-- INSTALACIÓN Y CONFIGURACIÓN -->
+				<section>
+				  <h3>Índice</h3>
+				  <ol>
+					<li>Introducción y conceptos básicos</li>
+					<li>Funcionalidades</li>
+					<li class="fragment highlight-red">Instalación y configuración</li>
+					<li>Pruebas realizadas</li>
+					<li>Conclusiones</li>
+				  </ol>
+				</section>
+
+				<section>
+					<section>
+						<h4>Instalación docker</h4>
+						<ol start="1" style="font-size: 0.65em;">
+							<li>Configuración docker-compose</li>
+							<span style="font-size: 0.5em;">fichero <i>docker-composer.yml</i></span>
+							<pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+version: "3.9"
+
+services:
+  mi-proxy:
+    build:
+      context: mi-proxy
+      args:
+        SERVER_HOSTNAME: $SERVER_HOSTNAME
+        TRINO_URL_PATH: $TRINO_URL_PATH
+        TRINO_API_URL_PATH: $TRINO_API_URL_PATH
+        TRINO_API_PORT: $TRINO_API_PORT
+    image: mi-proxy
+    container_name: mi-proxy
+#    user: $TRINO_USER
+    ports:
+      - 443:443
+    volumes:
+      - ./mi-proxy/logs:/var/log/nginx
+# Compartimos el socker de Docker Engine para poder usar el Docker Engine API dentro del contenedor
+      - /var/run/docker.sock:/var/run/docker.sock
+#     networks: 
+#       - mi-proxy
+#       - mi-trino
+    restart: always
+    depends_on:
+      - mi-trino-coordinator
+
+  mi-trino-coordinator:
+    build:
+      context: mi-trino-coordinator
+      args:
+        SERVER_HOSTNAME: $SERVER_HOSTNAME
+#       Otros parámetros opcionales pueden ir aquí
+#       Como los usados en https://github.com/trinodb/trino/blob/master/core/docker/README.md
+#       docker exec -it trino trino --catalog tpch --schema sf1
+    image: mi-trino-coordinator
+    container_name: mi-trino-coordinator
+    env_file:
+      - .env
+      - trino-catalogs/.env
+#    user: $DOCKER_USER
+    restart: always
+    ports:
+#   Mapeamos el puerto 80 externo al 8080 interno que es el puerto por defecto para HTTP usado en la imagen oficial del Trino.
+#   Mapeamos el puerto 443 externo al 8443 interno que es el puerto para HTTPS por el servidor Trino.
+      - "8080:8080"
+      - "9000:9000"
+#      - "443:8443"
+    volumes:
+      - ./trino-catalogs:/etc/trino/catalog:ro
+      - ./mi-trino-coordinator/logs:/data/trino/var/log
+      - ./mi-trino-coordinator/nodejs/files:/home/node/app/files
+      - ./mi-trino-coordinator/nodejs/apps:/home/node/app/apps
+      - ./mi-trino-coordinator/nodejs/logs:/var/log/trino-api
+#      - ./mi-trino/files:/home/node/app/files
+#      - ./mi-trino/apps:/home/node/app/apps
+# Compartimos el socker de Docker Engine para poder usar el Docker Engine API dentro del contenedor
+#      - /var/run/docker.sock:/var/run/docker.sock
+#      - /tmp/docker-fake.sock:/tmp/docker-fake.sock
+
+
+  mi-trino-worker:
+    build:
+      context: mi-trino-worker
+      args:
+        SERVER_HOSTNAME: $SERVER_HOSTNAME
+#       Otros parámetros opcionales pueden ir aquí
+#       Como los usados en https://github.com/trinodb/trino/blob/master/core/docker/README.md
+#       docker exec -it trino trino --catalog tpch --schema sf1
+    image: mi-trino-worker
+#    container_name: mi-trino-worker0
+    env_file:
+      - .env
+      - trino-catalogs/.env
+    ports:
+      - "8081-8091:8080"
+    volumes:
+      - ./trino-catalogs:/etc/trino/catalog:ro
+      - ./mi-trino-worker/logs:/data/trino/var/log
+
+							</code></pre>
+						</ol>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Instalación docker</h4>
+						<span style="font-size: 0.325em;">fichero <i>.env</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+SERVER_HOSTNAME=cinco-ap01p.gobiernodecanarias.net
+TRINO_URL_PATH=aplicaciones/trino
+TRINO_SERVER_USER=admin
+TRINO_SERVER_PASS=****
+TRINO_INTERNAL_COMM_SHARED_SECRET=KCZZItOB+oAMHi5jH59pt4pBE
+TRINO_API_URL_PATH=aplicaciones/trino/api
+TRINO_API_PORT=9000
+						</code></pre>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Instalación docker</h4>
+						<span style="font-size: 0.325em;">fichero <i>Dockerfile</i> (nodo coordinador)</span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+FROM trinodb/trino
+
+ARG SERVER_HOSTNAME
+ENV SERVER_HOSTNAME=${SERVER_HOSTNAME:-localhost}
+ARG TRINO_API_PORT
+ENV TRINO_API_PORT=${TRINO_API_PORT:-9000}
+
+LABEL org.opencontainers.image.authors="miguel.nunez@evm.net"
+LABEL Mi-TRINO='Trino Server v370'
+
+# Instalamos el editor nano (para pruebas)
+#RUN apt-get update && \
+#    apt-get -y install nano
+
+COPY --chown=trino:trino ./config/* /etc/trino/
+#COPY --chown=trino:trino ./../trino-catalogs/* /etc/trino/catalog/
+RUN rm -rf /etc/trino/catalog/*
+
+##################
+##### NODEJS #####
+##################
+# https://www.ibm.com/docs/en/z-chatops/1.1.0?topic=software-installing-nodejs
+# Ficheros descargados offline usando el comando `curl -sL -o node-v18.1.0-linux-x64.tar.gz 'https://nodejs.org/dist/latest/node-v18.1.0-linux-x64.tar.gz'`
+# NOTA: La versión docker del Centos no soporta el formato tar.xz.
+COPY ./downloads/* /downloads/
+
+USER root
+
+# Instalamos el comando ps usado por el módulo node-ps para listar los procesos.
+RUN dnf --disablerepo="*" --nodocs install -y /downloads/procps-ng-3.3.15-6.el8.x86_64.rpm && \
+	rm -f /downloads/procps-ng-3.3.15-6.el8.x86_64.rpm
+
+# Descomprimimos e instalamos los binarios del Node v18.1.0
+RUN tar zxf /downloads/node-v18.1.0-linux-x64.tar.gz -C /opt && \
+	rm -f /downloads/node-v18.1.0-linux-x64.tar.gz
+ENV PATH="/opt/node-v18.1.0-linux-x64/bin:${PATH}"
+
+RUN dnf clean all && rm -rf /var/cache/* /var/log/dnf* /downloads
+
+# Añadimos un nuevo usuario (node)
+RUN useradd -ms /bin/bash node
+RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+
+# Creamos el directorio para los ficheros de logs
+RUN mkdir -p /var/log/trino-api && chown -R node:node /var/log/trino-api
+
+USER node
+
+# Nuevo punto de entrada para este contenedor. Lanzará app.js (Trino-API) y luego el Trino.
+COPY --chown=node:node ./docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod a+x /docker-entrypoint.sh
+
+# Copiamos todas las aplicaciones. El directorio /home/node/app/apps se debe exportar como un bind mount.
+# NOTA: se requiere poner en el host permiso R/W para todos los usuarios en el directorio /home/ext-jnunperadm/infra/test-trino-multi/mi-trino-coordinator/apps
+COPY --chown=node:node ./nodejs/apps /home/node/app/apps/
+# Creamos el directorio a exportar para los ficheros a usar por las aplicaciones NodeJs (bind mount)
+# NOTA: se requiere poner en el host permiso R/W para todos los usuarios en el directorio /home/ext-jnunper/infra/mi-nodejs/files
+RUN mkdir /home/node/app/files
+# Y cargamos sus dependencias
+RUN find /home/node/app/apps -name package.json -maxdepth 2 -print0 | xargs -0 -r -n 1 -i sh -c 'cd -- $(dirname {}) ; echo "Instalando dependencias en $(pwd)..." ; npm install'
+
+# Cargamos el módulo nodemon para relanzar el node con los cambios de los scripts.
+RUN npm install -g nodemon
+
+USER trino
+
+##################
+##### NODEJS #####
+##################
+
+RUN mkdir -p /data/trino/var/log && chown -R trino:trino /data/trino
+
+USER root
+
+EXPOSE $TRINO_API_PORT
+
+CMD ["/docker-entrypoint.sh", "/usr/lib/trino/bin/run-trino"]
+						</code></pre>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Instalación docker</h4>
+						<span style="font-size: 0.325em;">Contenedores docker en ejecución (cluster Trino)</span>
+						<img class="top framed" src="img/pantallazos/p019.png" />
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h4>Configuración Trino</h4>
+						<ol start="2" style="font-size: 0.65em;">
+							<li>Configuración nodo coordinador</li>
+							<span style="font-size: 0.5em;">fichero <i>config.properties</i></span>
+							<pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">							
+#single node install config
+coordinator=true
+node-scheduler.include-coordinator=true
+http-server.http.port=8080
+discovery.uri=http://mi-trino-coordinator:8080
+
+
+# https://trino.io/docs/current/security/tls.html#https-load-balancer
+#http-server.https.enabled=true
+http-server.process-forwarded=true
+
+# Esto es para permitir usar la autenticación usuario/password con Trino CLI sin tener que activar HTTPS.
+# Por ejemplo:  trino --user=miguel --password
+# NO FUNCIONA ==> el paso de contraseña sigue exigiendo HTTPS.
+# La solución es evitar el flag --password.
+#http-server.authentication.allow-insecure-over-http=true
+
+# Secreto compartido usado en las comunicaciones entre nodos. Debe ser el mismo en todos los ficheros config.properties de todos los nodos.
+# https://trino.io/docs/current/security/internal-communication.html
+# NOTA: El secreto de 512 bytes se ha generado usando el comando `openssl rand 512 | base64`.
+internal-communication.shared-secret=KCZZItOB+oAMHi5jH59pt4pBE0l4zQc
+
+# Configuramos la autenticación de usuarios (sólo se admiten usuarios ext-*@canarias.org ó *@gobiernodecanarias.org).
+# https://trino.io/docs/current/security/user-mapping.html
+# En este ejemplo, bloquea el acceso al cluster del usuario etormed y se permite al resto, además se mapean los usuarios ext-* a ext-*@canarias.es.
+http-server.authentication.type=PASSWORD
+http-server.authentication.password.user-mapping.file=etc/user-mapping.json
+
+# Ocultar columnas no autorizadas en lugar de emitir un error
+#hide-inaccessible-columns = true
+
+# Web-UI
+# https://trino.io/docs/current/admin/web-interface.html
+#
+# Propiedades del Web-UI
+# https://trino.io/docs/current/admin/properties-web-interface.html
+#web-ui.enabled=false
+							</code></pre>
+						</ol>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Configuración Trino</h4>
+						<span style="font-size: 0.325em;">fichero <i>access-control.properties</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+# Reglas de control de acceso para todo el cluster.
+# https://trino.io/docs/current/security/file-system-access-control.html#system-level-access-control-files
+# NOTA: No parece existir un Group provider por defecto (hay que crear uno como un plugin) según se indica en https://trino.io/docs/current/develop/group-provider.html
+# Teniedo un Group provider, se pueden aplicar reglas de autorización a grupos de usuarios.
+access-control.name=file
+#security.config-file=/etc/trino/cluster-auth-rules.json
+
+# TEST_1: Reglas
+#   Todo el mundo tiene acceso total a todos los catálogos, excepto el catálogo ACTINIO que sólo es accesible en modo lectura para los usuarios ext-jnunper@canarias.es y etormed.
+#   Todo el mundo puede ejecutar queries, el usuario etormed puede matar sus queries y el usuario ext-jnunper@canarias puede ver, ejecutar y matar de todos los usuarios.
+security.config-file=/etc/trino/cluster-auth-rules.test1.json
+
+# Releemos cada segundo el fichero de reglas para aplicar cambios
+security.refresh-period=1s
+						</code></pre>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Configuración Trino</h4>
+						<span style="font-size: 0.325em;">fichero <i>cluster-auth-rules.json</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+{
+    "catalogs": [{
+            "role": "admin",
+            "catalog": "(mysql|system)",
+            "allow": "all"
+        }, {
+            "group": "finance|human_resources",
+            "catalog": "postgres",
+            "allow": true
+        }, {
+            "catalog": "hive",
+            "allow": "all"
+        }, {
+            "user": "alice",
+            "catalog": "postgresql",
+            "allow": "read-only"
+        }, {
+            "catalog": "system",
+            "allow": "none"
+        }
+    ],
+    "schemas": [{
+            "role": "admin",
+            "schema": ".*",
+            "owner": true
+        }, {
+            "user": "guest",
+            "owner": false
+        }, {
+            "catalog": "default",
+            "schema": "default",
+            "owner": true
+        }
+    ],
+    "tables": [{
+            "role": "admin",
+            "privileges": ["SELECT", "INSERT", "DELETE", "OWNERSHIP"]
+        }, {
+            "user": "banned_user",
+            "privileges": []
+        }, {
+            "catalog": "default",
+            "schema": "hr",
+            "table": "employee",
+            "privileges": ["SELECT"],
+            "filter": "user = current_user",
+            "filter_environment": {
+                "user": "system_user"
+            }
+        }, {
+            "catalog": "default",
+            "schema": "default",
+            "table": ".*",
+            "privileges": ["SELECT"],
+            "columns": [{
+                    "name": "address",
+                    "allow": false
+                }, {
+                    "name": "SSN",
+                    "mask": "'XXX-XX-' + substring(credit_card, -4)",
+                    "mask_environment": {
+                        "user": "system_user"
+                    }
+                }
+            ]
+        }
+    ],
+    "system_session_properties": [{
+            "role": "admin",
+            "allow": true
+        }, {
+            "user": "banned_user",
+            "allow": false
+        }, {
+            "property": "resource_overcommit",
+            "allow": true
+        }
+    ],
+    "catalog_session_properties": [{
+            "role": "admin",
+            "allow": true
+        }, {
+            "user": "banned_user",
+            "allow": false
+        }, {
+            "catalog": "hive",
+            "property": "bucket_execution_enabled",
+            "allow": true
+        }
+    ],
+    "queries": [{
+            "role": "admin",
+            "allow": ["execute", "kill", "view"]
+        }, {
+            "user": "alice",
+            "allow": ["execute", "kill"]
+        }, {
+            "group": "contractors",
+            "queryOwner": "alice|dave",
+            "allow": ["view"]
+        }, {
+            "allow": ["execute"]
+        }
+    ],
+    "impersonation": [{
+            "original_role": "admin",
+            "new_user": "bob",
+            "allow": false
+        }, {
+            "original_role": "admin",
+            "new_user": ".*"
+        }, {
+            "original_user": ".*",
+            "new_user": "test"
+        }
+    ],
+    "system_information": [{
+            "role": "admin",
+            "allow": ["read", "write"]
+        }, {
+            "user": "alice",
+            "allow": ["read"]
+        }
+    ]
+}
+						</code></pre>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Configuración Trino</h4>
+						<span style="font-size: 0.325em;">fichero <i>group-provider.properties</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+# File group provider
+# https://trino.io/docs/current/security/group-file.html
+group-provider.name=file
+file.group-file=/etc/trino/grupos-usuarios.txt
+file.refresh-period=10s
+						</code></pre>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Configuración Trino</h4>
+						<span style="font-size: 0.325em;">fichero <i>grupos-usuarios.txt</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+admin:ext-jnunper@canarias.es
+lectores:ext-jnunper@canarias.es,etormed,ext-jgilcar@canarias.es,ext-mhergark@canarias.es
+escritores: etormed
+						</code></pre>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Configuración Trino</h4>
+						<span style="font-size: 0.325em;">fichero <i>password-authenticator.properties</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+# # Datos del mecanimos de autenticación de usuarios mediante claves.
+# # https://trino.io/docs/current/security/password-file.html
+# password-authenticator.name=file
+# file.password-file=/etc/trino/usuarios.db
+# #file.refresh-period=5s
+# #file.auth-token-cache.max-size=1000
+
+# Mecanismo de autenticación por LDAP
+# Usuario de búsqueda (no usado): uid=trino-ldap,o=applications,o=gobiernodecanarias,c=es
+password-authenticator.name=ldap
+ldap.url=ldap://directorio-pre.gobiernodecanarias.net:389
+ldap.allow-insecure=true
+ldap.user-bind-pattern=uid=${USER},o=gobiernodecanarias,c=es:uid=${USER},o=canarias.org,c=es
+#ldap.bind-dn=uid=trino-ldap,o=applications,o=gobiernodecanarias,c=es
+#ldap.bind-password=****
+						</code></pre>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Configuración Trino</h4>
+						<span style="font-size: 0.325em;">fichero <i>user-mapping.json</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+{
+  "rules": [
+    {
+      "pattern": "(ext-.+)",
+      "case": "lower",
+      "user": "$1@canarias.es",
+      "allow": true
+    },
+    {
+      "pattern": "(.+)",
+      "allow": true
+    }
+  ]
+}						</code></pre>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Configuración Trino</h4>
+						<span style="font-size: 0.325em;">fichero <i>log.properties</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+# Nivel de logging de los distintos componentes de TrinoDB
+# https://trino.io/docs/current/installation/deployment.html#log-levels
+io.trino=INFO
+io.trino.plugin.password=DEBUG						</code></pre>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Configuración Trino</h4>
+						<span style="font-size: 0.325em;">fichero <i>usuarios.db</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+miguel:$2y$10$RkOdWEkLHjaAds7Kzp0C3eWNHVzoawLolnmnvdbsxQUB0ACjQzeAO
+user_ro:$2y$10$.VJ6yKEuWo38NXK.bd6/J.ML5.sfEFA1B.0jNoyMw/VsQzoLAjNc6
+user_rw:$2y$10$5us6RyTDd/ynlOt.IX0R1eHu9laNqGtOfBfUGm.ZYMgUty6QdBKIO
+						</code></pre>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h4>Configuración Trino</h4>
+						<ol start="3" style="font-size: 0.65em;">
+							<li>Catálogos</li>
+							<span style="font-size: 0.5em;">fichero <i>.env</i></span>
+							<pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">							
+DB_FERMIO_USER=extjnunper
+DB_FERMIO_PASSWORD=****
+DB_OISTAC_USER=extjnunper
+DB_OISTAC_PASSWORD=****
+DB_PPA_USER=root
+DB_PPA_PASSWORD=****
+DB_ACTINIO_USER=extjnunper
+DB_ACTINIO_PASSWORD=****
+							</code></pre>
+						</ol>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Configuración Trino</h4>
+						<span style="font-size: 0.325em;">fichero <i>actinio.properties</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+connector.name=postgresql
+### Conexión al servidor ACTINIO (actinio.istac.local)
+connection-url=jdbc:postgresql://xxx.xxx.xxx.xxx:xxxx/pistac
+connection-user=${ENV:DB_ACTINIO_USER}
+connection-password=${ENV:DB_ACTINIO_PASSWORD}
+						</code></pre>
+						<span style="font-size: 0.325em;">fichero <i>blackhole.properties</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+connector.name=blackhole
+						</code></pre>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Configuración Trino</h4>
+						<span style="font-size: 0.325em;">fichero <i>fermio.properties</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+connector.name=postgresql
+### Conexión al FERMIO
+connection-url=jdbc:postgresql://xxx.xxx.xxx.xxx:xxxx/pistac
+connection-user=${ENV:DB_FERMIO_USER}
+connection-password=${ENV:DB_FERMIO_PASSWORD}
+#fermio.security=FILE
+#fermio.config-file=/etc/trino/catalog/fermio-auth-rules.json
+						</code></pre>
+						<span style="font-size: 0.325em;">fichero <i>fermio-auth-rules.json</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+{
+    "schemas": [{
+            "user": "admin",
+            "schema": ".*",
+            "owner": true
+        }, {
+            "group": "finance|human_resources",
+            "schema": "employees",
+            "owner": true
+        }, {
+            "user": "guest",
+            "owner": false
+        }, {
+            "schema": "default",
+            "owner": true
+        }
+    ],
+    "tables": [{
+            "user": "admin",
+            "privileges": ["SELECT", "INSERT", "DELETE", "OWNERSHIP"]
+        }, {
+            "user": "banned_user",
+            "privileges": []
+        }, {
+            "schema": "hr",
+            "table": "employee",
+            "privileges": ["SELECT"],
+            "filter": "user = current_user"
+        }{
+            "schema": "default",
+            "table": ".*",
+            "privileges": ["SELECT"],
+            "columns": [{
+                    "name": "address",
+                    "allow": false
+                }, {
+                    "name": "ssn",
+                    "mask": "'XXX-XX-' + substring(credit_card, -4)",
+                    "mask_environment": {
+                        "user": "admin"
+                    }
+                }
+            ]
+        }
+    ],
+    "session_properties": [{
+            "property": "force_local_scheduling",
+            "allow": true
+        }, {
+            "user": "admin",
+            "property": "max_split_size",
+            "allow": true
+        }
+    ]
+}
+						</code></pre>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+					<section>
+						<h4>Configuración Trino</h4>
+						<span style="font-size: 0.325em;">fichero <i>jmx.properties</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+connector.name=jmx
+						</code></pre>
+						<span style="font-size: 0.325em;">fichero <i>memory.properties</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+connector.name=memory
+						</code></pre>
+						<span style="font-size: 0.325em;">fichero <i>oistac.properties</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+connector.name=oracle
+### Conexión al OISTAC
+connection-url=jdbc:oracle:thin:@//xxx.xxx.xxx.xxx:xxxx/OISTAC
+connection-user=${ENV:DB_OISTAC_USER}
+connection-password=${ENV:DB_OISTAC_PASSWORD}
+						</code></pre>
+						<span style="font-size: 0.325em;">fichero <i>tpcds.properties</i></span>
+						<pre style="font-size: 0.39em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">
+connector.name=tpcds
+tpcds.splits-per-node=4
+						</code></pre>
+						<aside class="notes">
+							<p style="font-size: 0.5em;"></p>
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<h4>Configuración Trino</h4>
+					<ol start="4" style="font-size: 0.65em;">
+						<li>Configuración nodo worker</li>
+						<span style="font-size: 0.5em;">fichero <i>config.properties</i></span>
+						<pre style="font-size: 0.6em; width: 100%"><code data-trim data-noescape style="font-size: 0.6em;">							
+coordinator=false
+http-server.http.port=8080
+query.max-memory=50GB
+query.max-memory-per-node=0.3GB
+discovery.uri=http://mi-trino-coordinator:8080
+
+internal-communication.shared-secret=KCZZItOB+oAMHi5jH59pt4pBE0l4zQc
+						</code></pre>
+					</ol>
+					<aside class="notes">
+						<p style="font-size: 0.5em;"></p>
+					</aside>
+				</section>
 
 <!-- PRUEBAS REALIZADAS -->
+				<section>
+				  <h3>Índice</h3>
+				  <ol>
+					<li>Introducción y conceptos básicos</li>
+					<li>Funcionalidades</li>
+					<li>Instalación y configuración</li>
+					<li class="fragment highlight-red">Pruebas realizadas</li>
+					<li>Conclusiones</li>
+				  </ol>
+				</section>
+
 				<section>
 					<h4>Pruebas</h4>
 					<ol start="1" style="font-size: 0.65em;">
@@ -1012,19 +1716,97 @@ security.config-file=/etc/trino/cluster-auth-rules.test1.json
 					</aside>
 				</section>
 
+				<section>
+					<section>
+						<h4>Pruebas</h4>
+						<p style="font-size: 0.5em;">Acceso desde Apache Hop a Trino</p>
+						<img class="top framed" src="img/pantallazos/p012.png" style="width: 80%" />
+						<aside class="notes">
+						</aside>
+					</section>
+					<section>
+						<img class="top framed" src="img/pantallazos/p014.png" />
+					</section>
+					<section>
+						<img class="top framed" src="img/pantallazos/p013.png" />
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h4>Pruebas</h4>
+						<p style="font-size: 0.5em;">Acceso desde Kettle 8.3 a Trino</p>
+						<img class="top framed" src="img/pantallazos/p015.png" style="width: 80%" />
+						<aside class="notes">
+						</aside>
+					</section>
+					<section>
+						<img class="top framed" src="img/pantallazos/p016.png" />
+					</section>
+					<section>
+						<img class="top framed" src="img/pantallazos/p017.png" />
+					</section>
+				</section>
+
+				<section>
+					<h4>Pruebas</h4>
+					<p style="font-size: 0.5em;">Trino-CLI</p>
+					<img class="top framed" src="img/pantallazos/p018.png" style="width: 80%" />
+					<aside class="notes">
+					</aside>
+				</section>
+
+				<section>
+					<h4>Pruebas</h4>
+					<p style="font-size: 0.5em;">Sencillo formulario web para realizar consultas contra Trino</p>
+					<img class="top framed" src="img/pantallazos/p008.png" style="width: 80%" />
+					<aside class="notes">
+					</aside>
+				</section>
+
 <!-- CONCLUSIONES -->
 				<section>
+				  <h3>Índice</h3>
+				  <ol>
+					<li>Introducción y conceptos básicos</li>
+					<li>Funcionalidades</li>
+					<li>Instalación y configuración</li>
+					<li>Pruebas realizadas</li>
+					<li class="fragment highlight-red">Conclusiones</li>
+				  </ol>
+				</section>
+
+				<section>
 					<h4>Ventajas</h4> <img class="carita-r2-c1" /><br/>
-					<ul>
+					<ul style="font-size: 0.75em;">
 						<li>Es gratis</li>
 						<img class="fragment fade-in-then-out current-visible top framed" src="img/memes/no-2.gif" />
 						<li class="fragment">Gestión uniforme de todas las fuentes de datos</li>
-						<li class="fragment">Facilita el análisis de datos</li>
-						<li class="fragment"></li>
-						<li class="fragment"></li>
-						<li class="fragment"></li>
+						<li class="fragment">Un control fino de los accesos</li>
+						<li class="fragment">Categorizar las queries en diferentes prioridades</li>
+						<li class="fragment">Facilita el análisis de datos (calidad y rendimiento)</li>
+						<li class="fragment">Fácil de automatizar (REST API)</li>
+						<li class="fragment">Queries optimizadas</li>
+						<li class="fragment">...y muchas promesas!!</li>
 					</ul>
 					<aside class="notes">
+						<ul style="font-size: 0.5em;">
+							<li>Proyecto Opensource respaldado por la compañía Starburst, muy activo.<br/>
+							Software muy probado, desarrollado en java con gran calidad.<br/>
+							Se puede extender mediante SPI (Service Provider Interface) Java, con ayuda de la documentación existente.</li>
+							<li>Permite proteger TODAS las fuentes de datos para TODAS la líneas de producción del Istac, frente a soluciones parciales (por ejemplo, filtrado de filas en SAS Viya, TOAD, etc.) y de forma uniforme (frente a encriptado en cada BDD, etc.).<br/>
+							Se centraliza el control de acceso a todos los datos independientemente de dónde se localicen.<br/>
+							Ya no hace falta tener cuentas de usuarios en todas las BBDD, bastará con las de servicio.<br/>
+							Revocar el acceso será mucho más rápido y sencillo.<br/>
+							Un SQL uniforme y potente para todas las BBDD. Incluyendo BBDD NoSQL (columnares como calidad del aire??).</li>
+							<li>El control de accesos es muy flexible y permite emplear expresiones regulares, tener en cuenta el software cliente, determinar qué mecanismo de autenticación es admisible para cada usuario, etc.<br/>
+							Incluye mapeado de usuarios y grupos (para aplicación de permisos por roles).</li>
+							<li>Con los grupos de recursos, es posible dividir en queries críticas y menos críticas.</li>
+							<li>En futuro próximo es posible que se quiera trabajar más el análisis de datos (OLAP) para lograr una mejor calidad del dato.<br/>
+							La información sobre rendimiento se puede usar para mejorar las queries</li>
+							<li><a href="https://cinco-ap01p.gobiernodecanarias.net/aplicaciones/trino/api/query">Trino-API</a></li>
+							<li>A falta de pruebas reales (múltiples servidores), el producto promete un rendimiento excelente en consultas sobre grandes volúmenes de datos.</li>
+						</ul>
 					</aside>
 				</section>
 				
@@ -1133,7 +1915,7 @@ security.config-file=/etc/trino/cluster-auth-rules.test1.json
 						<li>https://www.sas.com/content/dam/SAS/support/en/sas-global-forum-proceedings/2019/3358-2019.pdf</li>
 						<li>https://www.matillion.com/resources/blog/the-types-of-databases-with-examples</li>
 						<li>https://www.javatpoint.com/types-of-databases</li>
-						<li></li>
+						<li>https://trino.io/docs/current/develop/client-protocol.html</li>
 						<li></li>
 						<li></li>
 						<li></li>
